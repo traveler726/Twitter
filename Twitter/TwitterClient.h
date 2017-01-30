@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <BDBOAuth1SessionManager.h>
+//#import <BDBOAuth1SessionManager.h>
+#import <BDBOAuth1Manager/BDBOAuth1SessionManager.h>
+
 // #import <BDBOAuth1RequestOperationManager.h>
 
 @interface TwitterClient : BDBOAuth1SessionManager // BDBOAuth1RequestOperationManager
