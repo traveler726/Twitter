@@ -17,19 +17,16 @@
 
 - (IBAction)onLogin:(id)sender {
     
-    [[TwitterClient sharedInstance].requestSerializer removeAccessToken];
-    [[TwitterClient sharedInstance] fetchRequestTokenWithPath:@"oauth/request_token" method:@"GET" callbackURL:[NSURL URLWithString:@"cptwitterdemo:/oauth"] scope:nil success:^(BDBOAuth1Credential *requestToken) {
-        NSLog(@"Success - got the request token!");
-        NSURL *authURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/oauth/authorize?oauth_token=%@", requestToken.token ]];
-        
-        [[UIApplication sharedApplication] openURL:authURL options:@{} completionHandler:^(BOOL success) {
-            NSLog(@"Open: %d",success);
-        }];
-
-    } failure:^(NSError *error) {
-        NSLog(@"Failed to get the request token!");
+    // Consolidated implementation: Will pass this completion block to the TwitterClient which will call it back.
+    [[TwitterClient sharedInstance] loginWithCompletion:^(User *user, NSError *error) {
+        if ( user != nil ) {
+            // Modally present tweets view
+            NSLog(@"Welcome '%@'", user.name);
+        } else {
+            // Present error view
+            NSLog(@"Login error: %@", error);
+        }
     }];
-
 }
 
 - (void)viewDidLoad {

@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import <BDBOAuth1SessionManager.h>
 #import <BDBOAuth1Manager/BDBOAuth1SessionManager.h>
+#include "User.h"
 
 // #import <BDBOAuth1RequestOperationManager.h>
 
 @interface TwitterClient : BDBOAuth1SessionManager // BDBOAuth1RequestOperationManager
 
 + (TwitterClient *) sharedInstance;
+
+- (void) loginWithCompletion:(void (^)(User *user, NSError *error)) compltion;
+- (void) openURL:(NSURL *) url; 
 
 @end
