@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "TwitterClient.h"
+#import "User.h"
+#import "Tweet.h"
 
 @interface AppDelegate ()
 
@@ -69,12 +71,21 @@
             NSLog(@"Progress is: %@", downloadProgress);
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSLog(@"Successful verify_creds: User: %@", responseObject);
+            
+            User *user = [[User alloc] initWithDictionary:responseObject];
+            NSLog (@"User created with name: %@ screenName:%@ and tagline:%@", user.name, user.screenname, user.tagline);
+            
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"Failed to verify_creds for unknown user.");
         }];
         
         [[TwitterClient sharedInstance] GET:@"1.1/statuses/home_timeline.json" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"Successful getting Tweets (via home_timeline): %@", responseObject);
+            //NSLog(@"Successful getting Tweets (via home_timeline): %@", responseObject);
+            
+            NSArray *tweets = [Tweet tweetsWithArray:responseObject];
+            for (Tweet *tweet in tweets) {
+                NSLog(@" Tweet createdAt: %@ text: %@", tweet.createdAt, tweet.text);
+            }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog (@"Error getting tweets");
         }];
