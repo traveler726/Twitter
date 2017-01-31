@@ -63,6 +63,21 @@
     [[TwitterClient sharedInstance] fetchAccessTokenWithPath:@"oauth/access_token" method:@"POST" requestToken:[BDBOAuth1Credential credentialWithQueryString:url.query] success:^(BDBOAuth1Credential *accessToken) {
         NSLog(@"Success - got the access token");
         [[TwitterClient sharedInstance].requestSerializer saveAccessToken:accessToken];
+        
+        // Verify the user - who it is BTW?
+        [[TwitterClient sharedInstance] GET:@"1.1/account/verify_credentials.json" parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+            NSLog(@"Progress is: %@", downloadProgress);
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"Successful verify_creds: User: %@", responseObject);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"Failed to verify_creds for unknown user.");
+        }];
+        
+        [[TwitterClient sharedInstance] GET:@"1.1/statuses/home_timeline.json" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"Successful getting Tweets (via home_timeline): %@", responseObject);
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog (@"Error getting tweets");
+        }];
     } failure:^(NSError *error) {
         NSLog(@"Failure to get the access token");
     }];
