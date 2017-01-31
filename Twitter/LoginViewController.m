@@ -18,14 +18,18 @@
 - (IBAction)onLogin:(id)sender {
     
     [[TwitterClient sharedInstance].requestSerializer removeAccessToken];
-    // TODO:  The BDBOAuth1RequestOperationManager had different signature than BDBOAuth1SessionManager
-    //[[TwitterClient sharedInstance] fetchAccessTokenWithPath:@"oauth/request_token" method:@"GET" requestToken:[NSURL URLWithString:@"cptwitterdemo:/oauth"] success:^(BDBOAuth1Credential *accessToken) {
-
-    [[TwitterClient sharedInstance] fetchAccessTokenWithPath:@"oauth/request_token" method:@"GET" requestToken:[NSURL URLWithString:@"cptwitterdemo:/oauth"] success:^(BDBOAuth1Credential *accessToken) {
+    [[TwitterClient sharedInstance] fetchRequestTokenWithPath:@"oauth/request_token" method:@"GET" callbackURL:[NSURL URLWithString:@"cptwitterdemo:/oauth"] scope:nil success:^(BDBOAuth1Credential *requestToken) {
         NSLog(@"Success - got the request token!");
+        NSURL *authURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/oauth/authorize?oauth_token=%@", requestToken.token ]];
+        
+        [[UIApplication sharedApplication] openURL:authURL options:@{} completionHandler:^(BOOL success) {
+            NSLog(@"Open: %d",success);
+        }];
+
     } failure:^(NSError *error) {
         NSLog(@"Failed to get the request token!");
     }];
+
 }
 
 - (void)viewDidLoad {

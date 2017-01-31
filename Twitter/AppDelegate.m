@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "TwitterClient.h"
 
 @interface AppDelegate ()
 
@@ -24,7 +25,7 @@
     
     self.window.rootViewController = [[LoginViewController alloc] init];
     
-    [self.window makeKeyWindow];
+    [self.window makeKeyAndVisible];
 
     return YES;
 }
@@ -56,5 +57,25 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+// TODO This is also deprecated!
+- (BOOL) application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    
+    [[TwitterClient sharedInstance] fetchAccessTokenWithPath:@"oauth/access_token" method:@"POST" requestToken:[BDBOAuth1Credential credentialWithQueryString:url.query] success:^(BDBOAuth1Credential *accessToken) {
+        NSLog(@"Success - got the access token");
+    } failure:^(NSError *error) {
+        NSLog(@"Failure to get the access token");
+    }];
+    return YES;
+
+}
+//- (BOOL) application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+//    
+//    [[TwitterClient sharedInstance] fetchAccessTokenWithPath:@"oauth/access_token" method:@"POST" requestToken:[BDBOAuth1Credential credentialWithQueryString:url.query] success:^(BDBOAuth1Credential *accessToken) {
+//        NSLog(@"Success - got the access token");
+//    } failure:^(NSError *error) {
+//        NSLog(@"Failure to get the access token");
+//    }];
+//    return YES;
+//}
 
 @end
