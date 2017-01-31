@@ -57,25 +57,17 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-// TODO This is also deprecated!
+#pragma mark Handle the OAuth callback from Twitter!  See rest of config in project settings info for URL
 - (BOOL) application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     
     [[TwitterClient sharedInstance] fetchAccessTokenWithPath:@"oauth/access_token" method:@"POST" requestToken:[BDBOAuth1Credential credentialWithQueryString:url.query] success:^(BDBOAuth1Credential *accessToken) {
         NSLog(@"Success - got the access token");
+        [[TwitterClient sharedInstance].requestSerializer saveAccessToken:accessToken];
     } failure:^(NSError *error) {
         NSLog(@"Failure to get the access token");
     }];
     return YES;
 
 }
-//- (BOOL) application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-//    
-//    [[TwitterClient sharedInstance] fetchAccessTokenWithPath:@"oauth/access_token" method:@"POST" requestToken:[BDBOAuth1Credential credentialWithQueryString:url.query] success:^(BDBOAuth1Credential *accessToken) {
-//        NSLog(@"Success - got the access token");
-//    } failure:^(NSError *error) {
-//        NSLog(@"Failure to get the access token");
-//    }];
-//    return YES;
-//}
 
 @end
