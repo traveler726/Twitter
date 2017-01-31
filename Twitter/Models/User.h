@@ -10,11 +10,15 @@
 
 @interface User : NSObject
 
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *screenname;
-@property (nonatomic, strong) NSString *profileImageUrl;
-@property (nonatomic, strong) NSString *tagline;
+@property (nonatomic, strong) NSString     *name;
+@property (nonatomic, strong) NSString     *screenname;
+@property (nonatomic, strong) NSString     *profileImageUrl;
+@property (nonatomic, strong) NSString     *tagline;
+@property (nonatomic, strong) NSDictionary *dictionary;   // Keep to serialize for persistent storage.
 
 -(id) initWithDictionary:(NSDictionary *)dictionary;
+
++ (User *) currentUser;
++ (void) setCurrentUser:(User *) user;
 
 @end

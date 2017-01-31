@@ -15,7 +15,7 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
 @interface TwitterClient()
 
 // Property storying a function!
-@property (nonatomic, strong) void (^logingCompletion)(User *user, NSError *error);
+@property (nonatomic, strong) void (^loginCompletion)(User *user, NSError *error);
 
 @end
 
@@ -43,28 +43,33 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
 
 - (void) loginWithCompletion:(void (^)(User *user, NSError *error)) completion {
     
-    self.logingCompletion = completion;
-    
-    [self.requestSerializer removeAccessToken];
-    [self fetchRequestTokenWithPath:@"oauth/request_token" method:@"GET" callbackURL:[NSURL URLWithString:@"cptwitterdemo:/oauth"] scope:nil success:^(BDBOAuth1Credential *requestToken) {
-        NSLog(@"Success - got the request token!");
-        NSURL *authURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/oauth/authorize?oauth_token=%@", requestToken.token ]];
+    User *user = [User currentUser];
+    if (user != nil) {
+        NSLog(@"Starting up the login process - but already have a user: %@", user.name);
+    } else {
+        self.loginCompletion = completion;
         
-        [[UIApplication sharedApplication] openURL:authURL options:@{} completionHandler:^(BOOL success) {
-            NSLog(@"Open: %d",success);
+        [self.requestSerializer removeAccessToken];
+        [self fetchRequestTokenWithPath:@"oauth/request_token" method:@"GET" callbackURL:[NSURL URLWithString:@"cptwitterdemo:/oauth"] scope:nil success:^(BDBOAuth1Credential *requestToken) {
+            NSLog(@"Success - got the request token!");
+            NSURL *authURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/oauth/authorize?oauth_token=%@", requestToken.token ]];
+            
+            [[UIApplication sharedApplication] openURL:authURL options:@{} completionHandler:^(BOOL success) {
+                NSLog(@"Open: %d",success);
+            }];
+            
+        } failure:^(NSError *error) {
+            NSLog(@"Failed to get the request token!");
+            // Just call the completion and let it handle the error
+            self.loginCompletion(nil, error);
         }];
-        
-    } failure:^(NSError *error) {
-        NSLog(@"Failed to get the request token!");
-        // Just call the completion and let it handle the error
-        self.logingCompletion(nil, error);
-    }];
+    }
 
 }
 
 // ------------------------------------------
 // TODO - should verify
-//   * url is expected URL before handling it.
+//    * url is expected URL before handling it.
 //    * loginCompletion
 // ------------------------------------------
 - (void) openURL:(NSURL *)url {
@@ -76,19 +81,22 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
         [self GET:@"1.1/account/verify_credentials.json" parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
             NSLog(@"Progress is: %@", downloadProgress);
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"Successful verify_creds: User: %@", responseObject);
+            //NSLog(@"Successful verify_creds: User: %@", responseObject);
+            NSLog(@"Successful verify_creds: User: %@", responseObject[@"name"]);
             
             User *user = [[User alloc] initWithDictionary:responseObject];
             NSLog (@"User created with name: %@ screenName:%@ and tagline:%@", user.name, user.screenname, user.tagline);
             
+            [User setCurrentUser:user];
+            
             // Call the completion block stored away in 1st step with user!
-            self.logingCompletion(user, nil);
+            self.loginCompletion(user, nil);
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"Failed to verify_creds for unknown user.");
             
             // Call the completion block stored away in 1st step and let it handle the error
-            self.logingCompletion(nil, error);
+            self.loginCompletion(nil, error);
 
         }];
         

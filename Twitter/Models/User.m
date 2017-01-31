@@ -8,8 +8,11 @@
 
 #import "User.h"
 
-@implementation User
+static NSString *const CurrentUserPersistKey = @"kMyTwitterUserKey";
+static User *myCurrentUser = nil;
 
+
+@implementation User
 
 -(id) initWithDictionary:(NSDictionary *)dictionary {
     
@@ -19,9 +22,58 @@
         self.screenname = dictionary[@"screen_name"];
         self.profileImageUrl = dictionary[@"profile_image_url"];
         self.tagline = dictionary[@"description"];
+        self.dictionary = dictionary;
         
     }
     return self;
 }
+
+
++ (User *) currentUser {
+    if (myCurrentUser == nil) {
+        User *user = [User inflateUser];
+        if (user != nil) {
+            NSLog(@"Inflated a user from disk - but is it usable without OAuth? name:%@", user.name);
+        } else {
+            NSLog(@"Tried to inflate a user from disk but it was nil");
+        }
+    }
+    return myCurrentUser;
+}
+
++ (void) setCurrentUser:(User *) user {
+    
+    if (myCurrentUser != nil) {
+        NSLog(@"Setting the current user to: %@ when there is already a current user: %@", myCurrentUser.name, user.name);
+    }
+    myCurrentUser = user;
+    [User persistUser];
+}
+
++ (void) persistUser {
+    User *user = [User currentUser];
+    if (user != nil) {
+        NSData *data=[NSKeyedArchiver archivedDataWithRootObject:user.dictionary];
+        if (data) {
+            [[NSUserDefaults standardUserDefaults] setObject:data forKey:CurrentUserPersistKey];
+        } else { // need to "logout" by storing nil for entry.
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:CurrentUserPersistKey];
+        }
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    };
+}
+
++ (User *) inflateUser {
+    User *user = myCurrentUser;
+    if (user == nil) {
+        NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:CurrentUserPersistKey];
+        if (data) {
+            NSDictionary *userDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            user = [[User alloc] initWithDictionary:userDictionary];
+        }
+    }
+    return user;
+}
+
 
 @end
