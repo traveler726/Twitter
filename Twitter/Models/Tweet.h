@@ -15,7 +15,10 @@
 @property (nonatomic, strong) NSDate   * createdAt;  // Creation time
 @property (nonatomic, strong) User     * user;       // Author
 
+
 -(id) initWithDictionary:(NSDictionary *)dictionary;
+
+- (NSString *) elapsedTimeSinceCreated;
 
 + (NSArray *) tweetsWithArray:(NSArray *)array;
 

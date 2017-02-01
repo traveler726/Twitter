@@ -8,10 +8,13 @@
 
 #import "TweetListViewController.h"
 #import "TweetTableViewCell.h"
+#import "TwitterClient.h"
+#import "Tweet.h"
 
 @interface TweetListViewController ()  <UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *viewTable;
+@property (strong, nonatomic) NSArray<Tweet *> *tweets;
 
 @end
 
@@ -20,6 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self getData];
     
     self.viewTable.dataSource = self;
     self.viewTable.estimatedRowHeight = 200;
@@ -35,6 +40,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) getData {
+    
+   // self.tweets = [[TwitterClient sharedInstance] getTweets];
+    
+    // ToDo move all access to Twitter via the Client.
+    [[TwitterClient sharedInstance] GET:@"1.1/statuses/home_timeline.json" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"Successful getting Tweets (via home_timeline): %@", responseObject);
+        
+        self.tweets = [Tweet tweetsWithArray:responseObject];
+        for (Tweet *tweet in self.tweets) {
+            NSLog(@" Tweet createdAt: %@ text: %@", tweet.createdAt, tweet.text);
+        }
+        [self.viewTable reloadData];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog (@"Error getting tweets");
+    }];
+}
 /*
 #pragma mark - Navigation
 
@@ -52,6 +74,8 @@
 - (TweetTableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
     TweetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetTableViewCell" forIndexPath:indexPath];
+    cell.tweet = [self.tweets objectAtIndex:indexPath.row];
+    [cell reloadData];
     
     // NOTE: Hiding a view with auto-layout does not really work.  The view will hide but the
     //       layout constraints will still be in effect.  So the layout will leave the spot for the view.

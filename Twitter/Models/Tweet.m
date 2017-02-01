@@ -8,6 +8,11 @@
 
 #import "Tweet.h"
 
+@interface Tweet ()
+
+
+@end
+
 @implementation Tweet
 
 -(id) initWithDictionary:(NSDictionary *)dictionary {
@@ -36,6 +41,18 @@
     }
     
     return tweets;
+}
+
+- (NSString *) elapsedTimeSinceCreated {
+    NSString *elapsed = @"tbd";
+    if (self.createdAt != nil) {
+        NSDateComponentsFormatter *formatter = [[NSDateComponentsFormatter alloc] init];
+        formatter.unitsStyle = NSDateComponentsFormatterUnitsStyleAbbreviated;
+        formatter.allowedUnits = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+        formatter.maximumUnitCount = 1;
+        elapsed = [formatter stringFromDate:self.createdAt toDate:[NSDate date]];
+    }
+    return elapsed;
 }
 
 @end

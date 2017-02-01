@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <BDBOAuth1Manager/BDBOAuth1SessionManager.h>
-#include "User.h"
+#import "User.h"
+#import "Tweet.h"
 
 // #import <BDBOAuth1RequestOperationManager.h>
 
@@ -17,6 +18,7 @@
 + (TwitterClient *) sharedInstance;
 
 - (void) loginWithCompletion:(void (^)(User *user, NSError *error)) compltion;
-- (void) openURL:(NSURL *) url; 
+- (void) openURL:(NSURL *) url;
+- (NSArray<Tweet *> *) getTweets;
 
 @end

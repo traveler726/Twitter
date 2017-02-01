@@ -22,11 +22,17 @@
         if ( user != nil ) {
             // Modally present tweets view
             NSLog(@"Welcome '%@'", user.name);
+            
+            // [self presentViewController:<#(nonnull UIViewController *)#> animated:<#(BOOL)#> completion:<#^(void)completion#>
+
         } else {
             // Present error view
             NSLog(@"Login error: %@", error);
         }
     }];
+//    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+//        NSLog(@"login done - popping off navigation stack.");
+//    }];
 }
 
 - (void)viewDidLoad {

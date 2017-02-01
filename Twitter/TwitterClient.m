@@ -7,6 +7,7 @@
 //
 
 #import "TwitterClient.h"
+#import "Tweet.h"
 
 NSString * const kTwitterConsumerKey = @"vPRomvts63A9GReL4BtzolwHh";
 NSString * const kTwitterConsumerSecret = @"SudLbaZ75fjhqSWY2c1pbQzR9teuyboxJagPLyeE1LHiAHpR4q";
@@ -63,6 +64,7 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
             // Just call the completion and let it handle the error
             self.loginCompletion(nil, error);
         }];
+        
     }
 
 }
@@ -100,9 +102,40 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
 
         }];
         
+        [self GET:@"1.1/statuses/home_timeline.json" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"Successful getting Tweets (via home_timeline): %@", responseObject);
+            
+            NSArray *tweets = [Tweet tweetsWithArray:responseObject];
+            for (Tweet *tweet in tweets) {
+                NSLog(@" Tweet createdAt: %@ text: %@", tweet.createdAt, tweet.text);
+            }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog (@"Error getting tweets");
+        }];
+        
     } failure:^(NSError *error) {
         NSLog(@"Failure to get the access token");
     }];
+}
+
+- (NSArray<Tweet *> *) getTweets {
+    
+    NSArray<Tweet *> *tweets = nil;
+    
+    // ToDo move all access to Twitter via the Client.
+    [self GET:@"1.1/statuses/home_timeline.json" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        //NSLog(@"Successful getting Tweets (via home_timeline): %@", responseObject);
+        
+        [tweets arrayByAddingObjectsFromArray:[Tweet tweetsWithArray:responseObject]];
+        for (Tweet *tweet in tweets) {
+            NSLog(@" Tweet createdAt: %@ text: %@", tweet.createdAt, tweet.text);
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog (@"Error getting tweets");
+    }];
+    
+    return tweets;
 }
 
 @end

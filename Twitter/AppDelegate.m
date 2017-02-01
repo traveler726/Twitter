@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "TweetListViewController.h"
 #import "TwitterClient.h"
 #import "User.h"
 #import "Tweet.h"
@@ -25,9 +26,31 @@
     // JJB: Removed the ViewController and Main and now hand creating my own window.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    self.window.rootViewController = [[LoginViewController alloc] init];
+    // Create the initial LoginViewController
+    LoginViewController *loginViewController = [[LoginViewController alloc] init];
     
+    // Create the TweetTableView
+    TweetListViewController *tweetListController = [[TweetListViewController alloc] initWithNibName:@"TweetListViewController" bundle:nil];
+    
+    // Create the stack of view controllers for the nav now
+    NSArray *stack = [NSArray arrayWithObjects:tweetListController, loginViewController, nil];
+
+    //Navigation controller init with ViewController as root
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:tweetListController];
+//    [navigationController presentViewController:loginViewController animated:TRUE completion:^{
+//        NSLog(@"Login view has completed.");
+//    }];
+    
+    // if user == nil
+    //
+    [navigationController setNavigationBarHidden:NO];
+    navigationController.viewControllers = stack;
+    self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
+    
+    
+    // Using NavController instead.
+    
 
     return YES;
 }

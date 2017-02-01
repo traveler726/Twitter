@@ -7,6 +7,8 @@
 //
 
 #import "TweetTableViewCell.h"
+#import "Tweet.h"
+
 
 @interface TweetTableViewCell ()
 
@@ -43,6 +45,17 @@
     self.contentLabel.text = [NSString stringWithFormat:@"%ld This is a simple tweet", self.rowCount];
     //self.contentLabel.text = @"This is a simple tweet.  But I want the text to be really really long.   I really am wondering how much text can actually fit into the cell.";
     
+}
+
+- (void) reloadData {
+    
+    if (self.tweet != nil) {
+        self.namelabel.text = self.tweet.user.name;
+        self.handleLabel.text = self.tweet.user.screenname;
+        self.timestampLabel.text = [self.tweet elapsedTimeSinceCreated];
+        self.contentLabel.text = self.tweet.text;
+    }
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
