@@ -29,6 +29,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *retweetButton;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 
+// top container for retweeted info
+@property (weak, nonatomic) IBOutlet UILabel *retweetedbyLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *retweetedTopIcon;
 
 @end
 
@@ -49,9 +52,15 @@
         self.contentLabel.text = self.tweet.text;
         [self.profileImageView setImageWithURL:self.tweet.user.profileImageUrl];
         
-//        if (self.tweet.retweetUser != nil) {
-//           self.retweetUserName = self.tweet.retweetUser.name
-//        }
+        if (self.tweet.retweetUser != nil) {
+            self.retweetedbyLabel.text = self.tweet.retweetUser.name;
+            self.retweetedbyLabel.hidden = NO;
+            self.retweetedTopIcon.hidden = NO;
+        } else {
+            self.retweetedbyLabel.text = nil; // probably not needed but ???
+            self.retweetedbyLabel.hidden = YES;
+            self.retweetedTopIcon.hidden = YES;
+        }
     } else {
         
         self.namelabel.text = nil;
