@@ -38,7 +38,7 @@ static User *myCurrentUser = nil;
         } else {
             NSLog(@"Tried to inflate a user from disk but it was nil");
         }
-        // myCurrentUser = user;
+        myCurrentUser = user;
     }
     return myCurrentUser;
 }

@@ -32,8 +32,14 @@
     // Create the TweetTableView
     TweetListViewController *tweetListController = [[TweetListViewController alloc] initWithNibName:@"TweetListViewController" bundle:nil];
     
-    // Create the stack of view controllers for the nav now
-    NSArray *stack = [NSArray arrayWithObjects:tweetListController, loginViewController, nil];
+    NSArray *vcStack = nil;
+    User *user = [User currentUser];
+    if (user == nil) {
+        vcStack = [NSArray arrayWithObjects:tweetListController, loginViewController, nil];
+    } else {
+        // Create the stack of view controllers for the nav now
+        vcStack = [NSArray arrayWithObjects:tweetListController, nil];
+    }
 
     //Navigation controller init with ViewController as root
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:tweetListController];
@@ -41,10 +47,8 @@
 //        NSLog(@"Login view has completed.");
 //    }];
     
-    // if user == nil
-    //
     [navigationController setNavigationBarHidden:NO];
-    navigationController.viewControllers = stack;
+    navigationController.viewControllers = vcStack;
     self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
     

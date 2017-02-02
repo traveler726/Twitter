@@ -14,10 +14,9 @@
 @property (nonatomic, strong) NSString     *screenname;
 @property (nonatomic, strong) NSURL        *profileImageUrl;
 @property (nonatomic, strong) NSString     *tagline;
-@property (nonatomic, assign) BOOL following;
+@property (nonatomic, assign) BOOL          following;
 
 @property (nonatomic, strong) NSDictionary *dictionary;   // Keep to serialize for persistent storage.
-
 
 -(id) initWithDictionary:(NSDictionary *)dictionary;
 
