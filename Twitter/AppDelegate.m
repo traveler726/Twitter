@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "AppNavigationalManager.h"
 #import "LoginViewController.h"
 #import "TweetListViewController.h"
 #import "TwitterClient.h"
@@ -18,6 +19,17 @@
 @end
 
 @implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application new_didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    // Refactored all App Level Navigation into the AppNavigationalManager
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = [[AppNavigationalManager sharedObj] rootVC];
+    [self.window makeKeyAndVisible];
+    
+
+    return YES;
+}
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

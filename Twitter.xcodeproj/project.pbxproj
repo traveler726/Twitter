@@ -13,6 +13,7 @@
 		1A17C2CB1E439FC400E0A718 /* TweetCreateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A17C2C91E439FC400E0A718 /* TweetCreateViewController.xib */; };
 		1A17C2CF1E439FF800E0A718 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A17C2CD1E439FF800E0A718 /* UserProfileViewController.m */; };
 		1A17C2D01E439FF800E0A718 /* UserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A17C2CE1E439FF800E0A718 /* UserProfileViewController.xib */; };
+		1A17C2D31E43A33700E0A718 /* AppNavigationalManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A17C2D21E43A33700E0A718 /* AppNavigationalManager.m */; };
 		1A4B99531E3FA6C300B9A4C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4B99521E3FA6C300B9A4C3 /* main.m */; };
 		1A4B99561E3FA6C300B9A4C3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A4B99551E3FA6C300B9A4C3 /* AppDelegate.m */; };
 		1A4B995E1E3FA6C300B9A4C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A4B995D1E3FA6C300B9A4C3 /* Assets.xcassets */; };
@@ -41,6 +42,8 @@
 		1A17C2CC1E439FF800E0A718 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
 		1A17C2CD1E439FF800E0A718 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 		1A17C2CE1E439FF800E0A718 /* UserProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileViewController.xib; sourceTree = "<group>"; };
+		1A17C2D11E43A33700E0A718 /* AppNavigationalManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNavigationalManager.h; sourceTree = "<group>"; };
+		1A17C2D21E43A33700E0A718 /* AppNavigationalManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppNavigationalManager.m; sourceTree = "<group>"; };
 		1A4B994E1E3FA6C300B9A4C3 /* Twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A4B99521E3FA6C300B9A4C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1A4B99541E3FA6C300B9A4C3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -127,6 +130,8 @@
 				1A4B99681E3FAAB900B9A4C3 /* LoginViewController.h */,
 				1A4B99691E3FAAB900B9A4C3 /* LoginViewController.m */,
 				1A4B996A1E3FAAB900B9A4C3 /* LoginViewController.xib */,
+				1A17C2D11E43A33700E0A718 /* AppNavigationalManager.h */,
+				1A17C2D21E43A33700E0A718 /* AppNavigationalManager.m */,
 				1A4B995D1E3FA6C300B9A4C3 /* Assets.xcassets */,
 				1A4B995F1E3FA6C300B9A4C3 /* LaunchScreen.storyboard */,
 				1A4B99621E3FA6C300B9A4C3 /* Info.plist */,
@@ -327,6 +332,7 @@
 				1A17C2CF1E439FF800E0A718 /* UserProfileViewController.m in Sources */,
 				1AFCFC4F1E42EA8B0046D8EA /* JsonUtil.m in Sources */,
 				1A17C2C51E439F8D00E0A718 /* TweetDetailViewController.m in Sources */,
+				1A17C2D31E43A33700E0A718 /* AppNavigationalManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
