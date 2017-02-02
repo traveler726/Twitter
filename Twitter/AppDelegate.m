@@ -20,7 +20,7 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application new_didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     // Refactored all App Level Navigation into the AppNavigationalManager
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -32,7 +32,7 @@
 }
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application obsolete_didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
     // JJB: Removed the ViewController and Main and now hand creating my own window.

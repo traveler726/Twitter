@@ -30,11 +30,12 @@
 
 // TODO refactoring into more management classes for these.
 @property (nonatomic, strong) User *activeUser;
-@property (nonatomic, strong) TweetListViewController *homeTimeLineVC;
-@property (nonatomic, strong) UserProfileViewController *userProfileVC;
 
-@property (nonatomic, strong) UINavigationController *homeTimelineNavC;
-@property (nonatomic, strong) UINavigationController *userProfileNavC;
+@property (nonatomic, strong) TweetListViewController   *timeLineVC;
+@property (nonatomic, strong) UINavigationController    *timeLineNavC;
+
+@property (nonatomic, strong) UserProfileViewController *userProfileVC;
+@property (nonatomic, strong) UINavigationController    *userProfileNavC;
 
 
 @end
@@ -46,7 +47,9 @@
     static AppNavigationalManager * sharedInstance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[AppNavigationalManager alloc] init];
+        if (sharedInstance == nil) {
+            sharedInstance = [[AppNavigationalManager alloc] init];
+        }
     });
     return sharedInstance;
 }
@@ -90,7 +93,6 @@
 }
 
 - (UIViewController *) loggedInVC {
-    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (self.loggedInTabBarVC == nil) {
@@ -148,22 +150,23 @@
 }
 
 - (void) setupNewLoggedInTabBarVC {
-    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self setupHomeTimeLine];
-        [self setupUserProfile];
+        [self setupTimeLineControl];
+        [self setupUserProfileControl];
         
         // Setup the items for the tabbar - TBD should I do this below and can I reuse if I do?
-        UITabBarItem *timelineTabItem = [[UITabBarItem alloc] initWithTitle:self.homeTimeLineVC.title image:nil tag:0];
-        self.homeTimeLineVC.tabBarItem = timelineTabItem;
+        UITabBarItem *timeLineTabItem = [[UITabBarItem alloc] initWithTitle:self.timeLineVC.title image:nil tag:0];
+        self.timeLineVC.tabBarItem = timeLineTabItem;
         
         UITabBarItem *userProfileTabItem = [[UITabBarItem alloc] initWithTitle:self.userProfileVC.title image:nil tag:0];
         self.userProfileVC.tabBarItem = userProfileTabItem;
         
         // Create the TabBarController now.
         UITabBarController *tabBarC = [[UITabBarController alloc] init];
-        tabBarC.viewControllers = @[self.homeTimelineNavC, self.userProfileNavC];
+        tabBarC.viewControllers = @[self.timeLineNavC, self.userProfileNavC];
+        
+        self.loggedInTabBarVC = tabBarC;
         
     });
 }
@@ -175,28 +178,28 @@
 // ------------------------------------------------------------
 #pragma mark Management of UITabBarController
 
-- (void) setupHomeTimeLine {
+- (void) setupTimeLineControl {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if ((self.homeTimeLineVC == nil) || (self.homeTimelineNavC == nil)) {
-            // Create the TweetTableView - used for User Home Timeline view.
-            self.homeTimeLineVC = [[TweetListViewController alloc] initWithNibName:@"TweetListViewController" bundle:nil];
-            if (self.homeTimeLineVC == nil) {
-                NSLog (@"ERROR: Problems creating the Home Timeline VC = TweetListViewController!");
+        if ((self.timeLineVC == nil) || (self.timeLineNavC == nil)) {
+            // Create the TweetTableView - used for User Home timeLine view.
+            self.timeLineVC = [[TweetListViewController alloc] initWithNibName:@"TweetListViewController" bundle:nil];
+            if (self.timeLineVC == nil) {
+                NSLog (@"ERROR: Problems creating the Home timeLine VC = TweetListViewController!");
             } else {
-                self.homeTimeLineVC.title = @"Timeline";
-                self.homeTimelineNavC = [[UINavigationController alloc] initWithRootViewController:self.homeTimeLineVC];
-                if (self.userProfileNavC == nil) {
-                    NSLog (@"ERROR: Problems creating the Home Timeline NavigationController!");
+                self.timeLineVC.title = @"TimeLine";
+                self.timeLineNavC = [[UINavigationController alloc] initWithRootViewController:self.timeLineVC];
+                if (self.timeLineNavC == nil) {
+                    NSLog (@"ERROR: Problems creating the Home Time Line NavigationController!");
                 }
             }
         } else {
-            NSLog (@"WARNING: Already Setup for Home Timeline - something went amiss!");
+            NSLog (@"WARNING: Already Setup for Home Time Line - something went amiss!");
         }
     });
 }
 
-- (void) setupUserProfile {
+- (void) setupUserProfileControl {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if ((self.userProfileVC == nil) || (self.userProfileNavC == nil)) {
