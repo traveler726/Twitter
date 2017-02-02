@@ -159,10 +159,10 @@
         [self setupUserProfileControl];
         
         // Setup the items for the tabbar - TBD should I do this below and can I reuse if I do?
-        UITabBarItem *timeLineTabItem = [[UITabBarItem alloc] initWithTitle:self.timeLineVC.title image:nil tag:0];
+        UITabBarItem *timeLineTabItem = [[UITabBarItem alloc] initWithTitle:self.timeLineVC.title image:[UIImage imageNamed:@"home-icon"] tag:0];
         self.timeLineVC.tabBarItem = timeLineTabItem;
         
-        UITabBarItem *userProfileTabItem = [[UITabBarItem alloc] initWithTitle:self.userProfileVC.title image:nil tag:0];
+        UITabBarItem *userProfileTabItem = [[UITabBarItem alloc] initWithTitle:self.userProfileVC.title image:[UIImage imageNamed:@"profile-icon"] tag:0];
         self.userProfileVC.tabBarItem = userProfileTabItem;
         
         // Create the TabBarController now.
@@ -190,7 +190,7 @@
             if (self.timeLineVC == nil) {
                 NSLog (@"ERROR: Problems creating the Home timeLine VC = TweetListViewController!");
             } else {
-                self.timeLineVC.title = @"TimeLine";
+                self.timeLineVC.title = @"Home";
                 self.timeLineNavC = [[UINavigationController alloc] initWithRootViewController:self.timeLineVC];
                 if (self.timeLineNavC == nil) {
                     NSLog (@"ERROR: Problems creating the Home Time Line NavigationController!");
