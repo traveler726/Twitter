@@ -31,15 +31,18 @@ static User *myCurrentUser = nil;
 
 
 + (User *) currentUser {
-    if (myCurrentUser == nil) {
-        User *user = [User inflateUser];
-        if (user != nil) {
-            NSLog(@"Inflated a user from disk - but is it usable without OAuth? name:%@", user.name);
-        } else {
-            NSLog(@"Tried to inflate a user from disk but it was nil");
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (myCurrentUser == nil) {
+            User *user = [User inflateUser];
+            if (user != nil) {
+                NSLog(@"Inflated a user from disk - but is it usable without OAuth? name:%@", user.name);
+            } else {
+                NSLog(@"Tried to inflate a user from disk but it was nil");
+            }
+            myCurrentUser = user;
         }
-        myCurrentUser = user;
-    }
+    });
     return myCurrentUser;
 }
 

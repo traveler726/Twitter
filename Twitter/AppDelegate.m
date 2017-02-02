@@ -42,7 +42,7 @@
     }
 
     //Navigation controller init with ViewController as root
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:tweetListController];
+    UINavigationController *navigationController = [[UINavigationController alloc] init];
 //    [navigationController presentViewController:loginViewController animated:TRUE completion:^{
 //        NSLog(@"Login view has completed.");
 //    }];
