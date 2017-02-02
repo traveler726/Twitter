@@ -12,8 +12,6 @@
 @interface TweetTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetContainerHeightContraint;
 
-@property NSInteger rowCount; // will be the model in future!
-
 @property (strong, nonatomic) Tweet* tweet;
 
 - (void) reloadData;

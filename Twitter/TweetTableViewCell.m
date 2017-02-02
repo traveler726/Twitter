@@ -6,6 +6,7 @@
 //  Copyright © 2017 JenniferBeck. All rights reserved.
 //
 
+#import <AFNetworking/UIImageView+AFNetworking.h>  // Adds functionality to the ImageView
 #import "TweetTableViewCell.h"
 #import "Tweet.h"
 
@@ -29,7 +30,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 
 
-
 @end
 
 
@@ -37,30 +37,35 @@
 
 // Called on the cell after all the views have been created on the cell
 - (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-    self.namelabel.text = @"Jennifer Beck";
-    self.handleLabel.text = @"jjbeck";
-    self.timestampLabel.text = @"4h";
-    self.contentLabel.text = [NSString stringWithFormat:@"%ld This is a simple tweet", self.rowCount];
-    //self.contentLabel.text = @"This is a simple tweet.  But I want the text to be really really long.   I really am wondering how much text can actually fit into the cell.";
-    
+    [super awakeFromNib];    
 }
 
 - (void) reloadData {
     
     if (self.tweet != nil) {
         self.namelabel.text = self.tweet.user.name;
-        self.handleLabel.text = self.tweet.user.screenname;
+        self.handleLabel.text = [NSString stringWithFormat:@"@%@",self.tweet.user.screenname];
         self.timestampLabel.text = [self.tweet elapsedTimeSinceCreated];
         self.contentLabel.text = self.tweet.text;
+        [self.profileImageView setImageWithURL:self.tweet.user.profileImageUrl];
+        
+//        if (self.tweet.retweetUser != nil) {
+//           self.retweetUserName = self.tweet.retweetUser.name
+//        }
+    } else {
+        
+        self.namelabel.text = nil;
+        self.handleLabel.text = nil;
+        self.timestampLabel.text = nil;
+        self.contentLabel.text = nil;
+        self.profileImageView.image = nil;
+
     }
 
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
 }
 

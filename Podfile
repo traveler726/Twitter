@@ -7,5 +7,6 @@ target 'Twitter' do
 
   # Pods for Twitter
   pod 'BDBOAuth1Manager'
+  pod 'AFNetworking/UIKit'
 
 end

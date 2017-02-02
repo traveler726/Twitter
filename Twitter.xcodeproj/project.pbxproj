@@ -20,6 +20,7 @@
 		1A646A1E1E416E6500BC42BE /* TweetTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A646A1A1E416E6500BC42BE /* TweetTableViewCell.xib */; };
 		1ADEBCC21E404AA1009FDAC4 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBCC11E404AA1009FDAC4 /* Tweet.m */; };
 		1ADEBCC51E404AB4009FDAC4 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBCC41E404AB4009FDAC4 /* User.m */; };
+		1AFCFC4F1E42EA8B0046D8EA /* JsonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFCFC4E1E42EA8B0046D8EA /* JsonUtil.m */; };
 		4E3EBC23EFF2E8BFD286928A /* libPods-Twitter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1606F42F6BB601D8B52BDCE6 /* libPods-Twitter.a */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,8 @@
 		1ADEBCC11E404AA1009FDAC4 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tweet.m; path = Models/Tweet.m; sourceTree = "<group>"; };
 		1ADEBCC31E404AB4009FDAC4 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = Models/User.h; sourceTree = "<group>"; };
 		1ADEBCC41E404AB4009FDAC4 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = Models/User.m; sourceTree = "<group>"; };
+		1AFCFC4D1E42EA8B0046D8EA /* JsonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JsonUtil.h; path = Twitter/Utils/JsonUtil.h; sourceTree = "<group>"; };
+		1AFCFC4E1E42EA8B0046D8EA /* JsonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JsonUtil.m; path = Twitter/Utils/JsonUtil.m; sourceTree = "<group>"; };
 		9D812761CDF70CE7E0BFFCDD /* Pods-Twitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.debug.xcconfig"; sourceTree = "<group>"; };
 		E29505CA4CEA8CAFD7DE0573 /* Pods-Twitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,6 +106,7 @@
 				1A4B995D1E3FA6C300B9A4C3 /* Assets.xcassets */,
 				1A4B995F1E3FA6C300B9A4C3 /* LaunchScreen.storyboard */,
 				1A4B99621E3FA6C300B9A4C3 /* Info.plist */,
+				1AFCFC4C1E42EA310046D8EA /* Utils */,
 				1A4B99511E3FA6C300B9A4C3 /* Supporting Files */,
 			);
 			path = Twitter;
@@ -125,6 +129,16 @@
 				1ADEBCC41E404AB4009FDAC4 /* User.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		1AFCFC4C1E42EA310046D8EA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1AFCFC4D1E42EA8B0046D8EA /* JsonUtil.h */,
+				1AFCFC4E1E42EA8B0046D8EA /* JsonUtil.m */,
+			);
+			name = Utils;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		59DCF363079FC8E7BCA13ECD /* Frameworks */ = {
@@ -282,6 +296,7 @@
 				1A646A1B1E416E6500BC42BE /* TweetListViewController.m in Sources */,
 				1A4B99531E3FA6C300B9A4C3 /* main.m in Sources */,
 				1A4B996B1E3FAAB900B9A4C3 /* LoginViewController.m in Sources */,
+				1AFCFC4F1E42EA8B0046D8EA /* JsonUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

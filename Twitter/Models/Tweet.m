@@ -7,6 +7,7 @@
 //
 
 #import "Tweet.h"
+#import "JsonUtil.h"
 
 @interface Tweet ()
 
@@ -14,6 +15,23 @@
 @end
 
 @implementation Tweet
+
+// ------------------------------------------------------------
+#pragma mark Factory for creating arary of Tweets from json dictionary
+
++ (NSArray *) tweetsWithArray:(NSArray *)array {
+    NSMutableArray *tweets = [NSMutableArray array];
+    
+    for (NSDictionary *dictionary in array) {
+        [tweets addObject:[[Tweet alloc] initWithDictionary:dictionary]];
+    }
+    
+    return tweets;
+}
+
+// ------------------------------------------------------------
+#pragma mark Contructor from json dictionary
+
 
 -(id) initWithDictionary:(NSDictionary *)dictionary {
     
@@ -28,20 +46,26 @@
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"EEE MMM d HH:mm:ss Z y"];
         self.createdAt = [dateFormatter dateFromString:createdAtString];
-        //self.createdAt = [NSDate
+        
+        self.favoriteCount = [dictionary[@"favorite_count"] integerValue];
+        self.retweetCount = [dictionary[@"retweet_count"] integerValue];
+        self.favorited = [dictionary[@"favorited"] boolValue];
+        self.retweeted = [dictionary[@"retweeted"] boolValue];
+        
+        NSDictionary *retweetStatusDict = dictionary[@"retweeted_status"];
+        if ([dictionary objectForKey:@"retweeted_status"] != nil) {
+            NSDictionary *retweetUserDict = retweetStatusDict[@"user"];
+            if (retweetUserDict != nil) {
+                self.retweetUser = [[User alloc] initWithDictionary:retweetUserDict];
+            }
+            [JsonUtil jsonStringFromDictionary:dictionary logToConsole:YES logPrefix:@"Json for tweet with retweet"];
+        }
     }
     return self;
 }
 
-+ (NSArray *) tweetsWithArray:(NSArray *)array {
-    NSMutableArray *tweets = [NSMutableArray array];
-    
-    for (NSDictionary *dictionary in array) {
-        [tweets addObject:[[Tweet alloc] initWithDictionary:dictionary]];
-    }
-    
-    return tweets;
-}
+// ------------------------------------------------------------
+#pragma mark Helper Methods
 
 - (NSString *) elapsedTimeSinceCreated {
     NSString *elapsed = @"tbd";

@@ -16,6 +16,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *viewTable;
 @property (strong, nonatomic) NSArray<Tweet *> *tweets;
 
+// Refresh controls
+@property (strong, nonatomic) UIRefreshControl *refreshTableControl;
+
 @end
 
 @implementation TweetListViewController
@@ -25,6 +28,7 @@
     // Do any additional setup after loading the view from its nib.
     
     [self getData];
+    [self.viewTable reloadData];
     
     self.viewTable.dataSource = self;
     self.viewTable.estimatedRowHeight = 200;
@@ -46,13 +50,17 @@
     
     // ToDo move all access to Twitter via the Client.
     [[TwitterClient sharedInstance] GET:@"1.1/statuses/home_timeline.json" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"Successful getting Tweets (via home_timeline): %@", responseObject);
         
+        NSUInteger count = [responseObject count];
+        NSLog(@"Successful getting %ld Tweets (via home_timeline)", count);
+
         self.tweets = [Tweet tweetsWithArray:responseObject];
-        for (Tweet *tweet in self.tweets) {
-            NSLog(@" Tweet createdAt: %@ text: %@", tweet.createdAt, tweet.text);
-        }
         [self.viewTable reloadData];
+        int tweetCount = 0;
+        for (Tweet *tweet in self.tweets) {
+            NSLog(@" %d Tweet createdAt: %@ text: %@", tweetCount, tweet.createdAt, tweet.text);
+            tweetCount += 1;
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog (@"Error getting tweets");
     }];
@@ -74,23 +82,53 @@
 - (TweetTableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
     TweetTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetTableViewCell" forIndexPath:indexPath];
-    cell.tweet = [self.tweets objectAtIndex:indexPath.row];
+    if (self.tweets.count > indexPath.row) {
+        cell.tweet = [self.tweets objectAtIndex:indexPath.row];
+        cell.hidden = NO;
+    } else {
+        // TODO: Need to set the constraint to make sure the cell does not take up empty space in layout.
+        // See below commented out section.
+        cell.tweet  = nil;
+        cell.hidden = YES;
+    }
     [cell reloadData];
     
     // NOTE: Hiding a view with auto-layout does not really work.  The view will hide but the
     //       layout constraints will still be in effect.  So the layout will leave the spot for the view.
     //       So instead need to set a constraint to 0 to get rid of.
-    if (indexPath.row % 5) {
-        cell.retweetContainerHeightContraint.constant = 30; // 24 * indexPath.row;
+//    if (indexPath.row % 5) {
+//        cell.retweetContainerHeightContraint.constant = 30; // 24 * indexPath.row;
+//
+//    } else {
+//        cell.retweetContainerHeightContraint.constant = 0;
+//    }
+//    [cell setNeedsUpdateConstraints];
 
-    } else {
-        cell.retweetContainerHeightContraint.constant = 0;
-    }
-    [cell setNeedsUpdateConstraints];
-    
-    cell.rowCount = indexPath.row;
-    
     return cell;
+}
+
+#pragma mark - UIRefreshControl
+
+- (void) setupRefresh {
+    UIRefreshControl *refreshTableControl = [[UIRefreshControl alloc] init];
+    [refreshTableControl addTarget:self action:@selector(refreshControlAction) forControlEvents:UIControlEventValueChanged];
+    self.refreshTableControl = refreshTableControl;
+    [self.viewTable addSubview:refreshTableControl];
+    
+}
+
+- (void) refreshControlAction {
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d, h:mm a"];
+    NSLog(@"Refreshing the data and view @ %@...", [formatter stringFromDate:[NSDate date]]);
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //Your main thread code goes in here
+        [self getData];
+        [self.viewTable reloadData];
+        [self.refreshTableControl endRefreshing];
+    });
 }
 
 @end
