@@ -1,3 +1,4 @@
+
 //
 //  LoginViewController.m
 //  Twitter
@@ -8,6 +9,8 @@
 
 #import "LoginViewController.h"
 #import "TwitterClient.h"
+
+#import "AppNavigationalManager.h"
 
 @interface LoginViewController ()
 
@@ -22,6 +25,7 @@
         if ( user != nil ) {
             // Modally present tweets view
             NSLog(@"Welcome '%@'", user.name);
+            [[AppNavigationalManager sharedObj] userHasLoggedIn];
             
             // [self presentViewController:<#(nonnull UIViewController *)#> animated:<#(BOOL)#> completion:<#^(void)completion#>
 

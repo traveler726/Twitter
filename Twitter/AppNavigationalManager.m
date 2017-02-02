@@ -59,7 +59,8 @@
     
     if (self != nil) {
         UIViewController *initialRootVC;
-        if ([self isUserLoggedIn]) {
+        // if ([self isUserLoggedIn]) {
+        if (false) {
             NSLog(@"\n\nAppNavigationalManager determined user '%@' is currently logged in.", self.activeUser.name);
             initialRootVC = [self loggedInVC];
         } else {
@@ -117,7 +118,8 @@
     // to the logged in VC since user is now logged in.
     
     // TODO - figure out how to not use a stack since not needed.
-    NSArray *navVCStack = [NSArray arrayWithObjects:self.loggedInTabBarVC, nil];
+    UIViewController *vcToSwitchTo = [self loggedInVC];
+    NSArray *navVCStack = [NSArray arrayWithObjects:vcToSwitchTo, nil];
     [self.managedNavController setViewControllers:navVCStack animated:YES];
 }
 
@@ -126,7 +128,8 @@
     // to the logged in VC since user is now logged in.
     
     // TODO - figure out how to not use a stack since not needed.
-    NSArray *navVCStack = [NSArray arrayWithObjects:self.loggedOutVC, nil];
+    UIViewController *vcToSwitchTo = [self loggedOutVC];
+    NSArray *navVCStack = [NSArray arrayWithObjects:vcToSwitchTo, nil];
     [self.managedNavController setViewControllers:navVCStack animated:YES];
 }
 

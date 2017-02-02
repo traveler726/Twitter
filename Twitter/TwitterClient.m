@@ -47,6 +47,7 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
     User *user = [User currentUser];
     if (user != nil) {
         NSLog(@"Starting up the login process - but already have a user: %@", user.name);
+        completion(user, nil);
     } else {
         self.loginCompletion = completion;
         
@@ -58,6 +59,8 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
             [[UIApplication sharedApplication] openURL:authURL options:@{} completionHandler:^(BOOL success) {
                 NSLog(@"Open: %d",success);
             }];
+            
+            self.loginCompletion(user, nil);
             
         } failure:^(NSError *error) {
             NSLog(@"Failed to get the request token!");
