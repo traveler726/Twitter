@@ -194,6 +194,7 @@
                 self.timeLineNavC = [[UINavigationController alloc] initWithRootViewController:self.timeLineVC];
                 if (self.timeLineNavC == nil) {
                     NSLog (@"ERROR: Problems creating the Home Time Line NavigationController!");
+                    self.timeLineNavC.navigationBarHidden = NO;
                 }
             }
         } else {

@@ -19,15 +19,92 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User Profile View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VG0-5p-sT1">
-                    <rect key="frame" x="108" y="290" width="134" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UiP-MM-xt8" userLabel="Top Blue View">
+                    <rect key="frame" x="0.0" y="-8" width="375" height="128"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User Profile View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VG0-5p-sT1">
+                            <rect key="frame" x="120" y="67" width="134" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.22263215983546902" green="0.72828858195214108" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="128" id="XjA-By-NYx"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L1k-Fx-Fgi" userLabel="Profile Details View">
+                    <rect key="frame" x="0.0" y="120" width="375" height="128"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pv2-ug-A9W" userLabel="NameLabel">
+                            <rect key="frame" x="8" y="36" width="39.5" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" id="Vtf-Ax-kAG"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" id="peZ-Jb-UO6"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Handle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZBc-7H-bVq" userLabel="HandleLabel">
+                            <rect key="frame" x="8" y="57" width="30.5" height="12"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" id="qzK-fq-pH5"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" id="vsa-r0-Abw"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dXq-xe-6ub">
+                            <rect key="frame" x="8" y="77" width="72" height="17"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </stackView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nvl-Ac-H6d" userLabel="DescriptionLabel">
+                            <rect key="frame" x="8" y="77" width="71.5" height="16.5"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" id="aGP-Dy-lzE"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" id="mFu-iA-R9G"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="0.85424441330000001" blue="0.77350413910000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="nvl-Ac-H6d" firstAttribute="leading" secondItem="ZBc-7H-bVq" secondAttribute="leading" id="A1u-G2-bKg"/>
+                        <constraint firstAttribute="height" constant="128" id="aI3-rr-Co8"/>
+                        <constraint firstItem="ZBc-7H-bVq" firstAttribute="leading" secondItem="pv2-ug-A9W" secondAttribute="leading" id="b0m-io-xFL"/>
+                        <constraint firstItem="nvl-Ac-H6d" firstAttribute="top" secondItem="ZBc-7H-bVq" secondAttribute="bottom" constant="8" id="mBy-Bs-eLS"/>
+                        <constraint firstItem="ZBc-7H-bVq" firstAttribute="top" secondItem="pv2-ug-A9W" secondAttribute="bottom" constant="4" id="woT-Pg-r9f"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cCZ-Uu-VbS" userLabel="Profile Image View">
+                    <rect key="frame" x="8" y="100" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="48" id="Jk3-cE-08A"/>
+                        <constraint firstAttribute="height" constant="48" id="qtI-ya-gg4"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="UiP-MM-xt8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-8" id="20R-1n-HKU"/>
+                <constraint firstItem="pv2-ug-A9W" firstAttribute="top" secondItem="cCZ-Uu-VbS" secondAttribute="bottom" constant="8" id="AOy-v2-iUf"/>
+                <constraint firstItem="pv2-ug-A9W" firstAttribute="leading" secondItem="cCZ-Uu-VbS" secondAttribute="leading" id="F2V-Oe-99J"/>
+                <constraint firstItem="L1k-Fx-Fgi" firstAttribute="top" secondItem="UiP-MM-xt8" secondAttribute="bottom" id="IEo-qY-GL3"/>
+                <constraint firstItem="cCZ-Uu-VbS" firstAttribute="top" secondItem="UiP-MM-xt8" secondAttribute="bottom" constant="-20" id="L7l-O5-61i"/>
+                <constraint firstItem="L1k-Fx-Fgi" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="M3C-7R-tOt"/>
+                <constraint firstItem="L1k-Fx-Fgi" firstAttribute="centerX" secondItem="UiP-MM-xt8" secondAttribute="centerX" id="WrS-l4-dr6"/>
+                <constraint firstItem="UiP-MM-xt8" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="Wvg-L9-TO7"/>
+                <constraint firstItem="cCZ-Uu-VbS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="fNr-yc-5cy"/>
+                <constraint firstItem="UiP-MM-xt8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="pJx-X1-fPK"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>
 </document>
