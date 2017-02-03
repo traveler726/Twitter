@@ -96,8 +96,12 @@
 - (UIViewController *) loggedInVC {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if (self.loggedInTabBarVC == nil) {
-            [self setupNewLoggedInTabBarVC];
+        if ([self isUserLoggedIn]) {
+            if (self.loggedInTabBarVC == nil) {
+                [self setupNewLoggedInTabBarVC];
+            }
+        } else {
+            NSLog(@"\n\nERROR - Told the user was logged in but does not appear to be.");
         }
     });
     return self.loggedInTabBarVC;
@@ -212,10 +216,13 @@
                 NSLog (@"ERROR: Problems creating the User Profile VC = UserProfileViewController!");
             } else {
                 self.userProfileVC.title = @"Profile";
+                self.userProfileVC.user = self.activeUser;
                 self.userProfileNavC = [[UINavigationController alloc] initWithRootViewController:self.userProfileVC];
                 if (self.userProfileNavC == nil) {
                     NSLog (@"ERROR: Problems creating the User Profile NavigationController!");
                 }
+                
+                [self.userProfileVC reloadData];
             }
         } {
             NSLog (@"WARNING: Already Setup for User Profile - something went amiss!");

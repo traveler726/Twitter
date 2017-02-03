@@ -20,9 +20,13 @@ static User *myCurrentUser = nil;
     if (self) {
         self.name = dictionary[@"name"];
         self.screenname = dictionary[@"screen_name"];
+        self.handle     = [NSString stringWithFormat:@"@%@", self.screenname];
         self.profileImageUrl = [NSURL URLWithString:dictionary[@"profile_image_url_https"]];
         self.tagline = dictionary[@"description"];
         self.following = [dictionary[@"following"] boolValue];
+        
+        self.followingCount = dictionary[@"following_count"];
+        self.followersCount = dictionary[@"followers_count"];
         self.dictionary = dictionary;
         
     }

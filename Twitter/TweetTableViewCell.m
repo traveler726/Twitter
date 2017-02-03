@@ -47,7 +47,7 @@
     
     if (self.tweet != nil) {
         self.namelabel.text = self.tweet.user.name;
-        self.handleLabel.text = [NSString stringWithFormat:@"@%@",self.tweet.user.screenname];
+        self.handleLabel.text = self.tweet.user.handle;
         self.timestampLabel.text = [self.tweet elapsedTimeSinceCreated];
         self.contentLabel.text = self.tweet.text;
         [self.profileImageView setImageWithURL:self.tweet.user.profileImageUrl];

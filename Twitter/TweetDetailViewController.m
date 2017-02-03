@@ -24,6 +24,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) reloadData {
+    NSLog(@"Will be reloading the data for the Tweet Detailed View");
+}
+
 /*
 #pragma mark - Navigation
 

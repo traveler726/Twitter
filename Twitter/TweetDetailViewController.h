@@ -10,4 +10,6 @@
 
 @interface TweetDetailViewController : UIViewController
 
+- (void) reloadData;
+
 @end

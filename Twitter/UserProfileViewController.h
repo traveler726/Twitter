@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 @interface UserProfileViewController : UIViewController
+
+@property (nonatomic, strong) User *user;
+
+- (void) reloadData;
 
 @end
