@@ -28,6 +28,7 @@
 		1ADEBCC21E404AA1009FDAC4 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBCC11E404AA1009FDAC4 /* Tweet.m */; };
 		1ADEBCC51E404AB4009FDAC4 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 1ADEBCC41E404AB4009FDAC4 /* User.m */; };
 		1AFCDADF1E4438F7003C5DE6 /* DateTimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFCDADE1E4438F7003C5DE6 /* DateTimeUtils.m */; };
+		1AFCDAE21E4526B0003C5DE6 /* UIUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFCDAE11E4526B0003C5DE6 /* UIUtils.m */; };
 		1AFCFC4F1E42EA8B0046D8EA /* JsonUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFCFC4E1E42EA8B0046D8EA /* JsonUtil.m */; };
 		4E3EBC23EFF2E8BFD286928A /* libPods-Twitter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1606F42F6BB601D8B52BDCE6 /* libPods-Twitter.a */; };
 /* End PBXBuildFile section */
@@ -70,6 +71,8 @@
 		1ADEBCC41E404AB4009FDAC4 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = Models/User.m; sourceTree = "<group>"; };
 		1AFCDADD1E4438F7003C5DE6 /* DateTimeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateTimeUtils.h; path = Twitter/Utils/DateTimeUtils.h; sourceTree = "<group>"; };
 		1AFCDADE1E4438F7003C5DE6 /* DateTimeUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateTimeUtils.m; path = Twitter/Utils/DateTimeUtils.m; sourceTree = "<group>"; };
+		1AFCDAE01E4526B0003C5DE6 /* UIUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIUtils.h; path = Twitter/Utils/UIUtils.h; sourceTree = "<group>"; };
+		1AFCDAE11E4526B0003C5DE6 /* UIUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIUtils.m; path = Twitter/Utils/UIUtils.m; sourceTree = "<group>"; };
 		1AFCFC4D1E42EA8B0046D8EA /* JsonUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JsonUtil.h; path = Twitter/Utils/JsonUtil.h; sourceTree = "<group>"; };
 		1AFCFC4E1E42EA8B0046D8EA /* JsonUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JsonUtil.m; path = Twitter/Utils/JsonUtil.m; sourceTree = "<group>"; };
 		9D812761CDF70CE7E0BFFCDD /* Pods-Twitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Twitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Twitter/Pods-Twitter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -170,6 +173,8 @@
 				1AFCFC4E1E42EA8B0046D8EA /* JsonUtil.m */,
 				1AFCDADD1E4438F7003C5DE6 /* DateTimeUtils.h */,
 				1AFCDADE1E4438F7003C5DE6 /* DateTimeUtils.m */,
+				1AFCDAE01E4526B0003C5DE6 /* UIUtils.h */,
+				1AFCDAE11E4526B0003C5DE6 /* UIUtils.m */,
 			);
 			name = Utils;
 			path = ..;
@@ -339,6 +344,7 @@
 				1A17C2C51E439F8D00E0A718 /* TweetDetailViewController.m in Sources */,
 				1AFCDADF1E4438F7003C5DE6 /* DateTimeUtils.m in Sources */,
 				1A17C2D31E43A33700E0A718 /* AppNavigationalManager.m in Sources */,
+				1AFCDAE21E4526B0003C5DE6 /* UIUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -126,6 +126,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="miU-Gg-zb0">
                                 <rect key="frame" x="0.0" y="0.0" width="142" height="20"/>
                                 <state key="normal" title="Reply" image="reply-icon"/>
+                                <connections>
+                                    <action selector="onReplyButton:" destination="KGk-i7-Jjw" eventType="primaryActionTriggered" id="hi6-zj-D76"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9K-He-gfi">
                                 <rect key="frame" x="162" y="0.0" width="142" height="20"/>

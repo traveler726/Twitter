@@ -9,6 +9,7 @@
 #import "UserProfileViewController.h"
 #import "TwitterClient.h"
 #import "DateTimeUtils.h"
+#import "UIUtils.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>  // Adds functionality to the ImageView
 
 
@@ -42,7 +43,7 @@
     [self loadUser];
 }
 
-// TODO - have a timing issue here - so going to just punt for now and add the crazy thread blocker!
+// TODO - Put the loading of the data into the Data Model (i.e. User factory!)
 -(void) loadUser:(NSString*)userScreenName {
     if (userScreenName != nil) {
             [[TwitterClient sharedInstance] getUser:userScreenName withCompletion:^(User *user, NSError *error) {
@@ -106,37 +107,22 @@
 
 
 - (IBAction) logoutButtonSelected :(id)sender {
-    NSLog(@"User has selected to Logout");
+    [UIUtils messageToUser:@"User has selected to Logout" forNavController:self.navigationController];
 }
+
 - (IBAction)onTweetButton:(UIButton *)sender {
-    [self messageToUser:@"Tweets Coming Soon"];
+    NSString *alertMessage = @"Tweets Coming Soon";
+    [UIUtils messageToUser:alertMessage forNavController:self.navigationController];
+    self.subContentLabel.text = alertMessage;
 }
 - (IBAction)onMediaButton:(UIButton *)sender {
-    [self messageToUser:@"Media Coming Soon"];
-
+    NSString *alertMessage = @"Media Coming Soon";
+    [UIUtils messageToUser:alertMessage forNavController:self.navigationController];
+    self.subContentLabel.text = alertMessage;
 }
 - (IBAction)onLikesButton:(UIButton *)sender {
-    [self messageToUser:@"Likes Coming Soon"];
-}
-
--(void) messageToUser:(NSString *) message {
-    // Easy way deprecated:
-    // [self presentViewController(alertController, animated: true, completion: nil)
-
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Under Construction"
-                                                            message:message
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction* gotItButton = [UIAlertAction
-                                actionWithTitle:@"Got It!"
-                                style:UIAlertActionStyleDefault
-                                handler:^(UIAlertAction * action) {
-                                    //Handle your yes please button action here
-                                }];
-    [alert addAction:gotItButton];
-
-    [self.navigationController presentViewController:alert animated:TRUE completion:^{
-        self.subContentLabel.text = message;
-    }];
-}
+    NSString *alertMessage = @"Likes Coming Soon";
+    [UIUtils messageToUser:alertMessage forNavController:self.navigationController];
+    self.subContentLabel.text = alertMessage;}
 
 @end
