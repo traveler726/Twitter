@@ -60,11 +60,14 @@
             self.retweetedbyLabel.text = self.tweet.retweetUser.name;
             self.retweetedbyLabel.hidden = NO;
             self.retweetedTopIcon.hidden = NO;
+            self.retweetContainerHeightContraint.constant = 22;
         } else {
             self.retweetedbyLabel.text = nil; // probably not needed but ???
             self.retweetedbyLabel.hidden = YES;
             self.retweetedTopIcon.hidden = YES;
+            self.retweetContainerHeightContraint.constant = 0;
         }
+        [self setNeedsUpdateConstraints];
     } else {
         
         self.namelabel.text = nil;
