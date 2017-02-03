@@ -13,6 +13,7 @@
 #import "AppNavigationalManager.h"
 
 @interface LoginViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *stateLabel;
 
 @end
 
@@ -37,6 +38,18 @@
 //    [self.navigationController dismissViewControllerAnimated:YES completion:^{
 //        NSLog(@"login done - popping off navigation stack.");
 //    }];
+}
+
+- (IBAction)onLogout:(id)sender {
+    [[TwitterClient sharedInstance] logoutWithCompletion:^(User *user, NSError *error) {
+        if (user == nil) {
+            NSLog(@"User has logged out.");
+            [[AppNavigationalManager sharedObj] userHasLoggedOut];
+        } else {
+            NSLog(@"ERROR: Logout Error.  Still signed in as: %@ Error: %@", user.name, error);
+        }
+        
+    }];
 }
 
 - (void)viewDidLoad {

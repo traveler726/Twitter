@@ -16,14 +16,15 @@
 @property (nonatomic, strong) NSString     *tagline;
 @property (nonatomic, assign) BOOL          following;
 
-@property (nonatomic, assign) NSString     *followersCount;
-@property (nonatomic, assign) NSString     *followingCount;
+@property (nonatomic, strong) NSString     *followersCount;
+@property (nonatomic, strong) NSString     *followingCount;
 
 @property (nonatomic, strong) NSString     *handle;
 
 @property (nonatomic, strong) NSDictionary *dictionary;   // Keep to serialize for persistent storage.
 
 -(id) initWithDictionary:(NSDictionary *)dictionary;
+-(void) logout;
 
 + (User *) currentUser;
 + (void) setCurrentUser:(User *) user;

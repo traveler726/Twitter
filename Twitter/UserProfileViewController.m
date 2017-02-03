@@ -55,13 +55,13 @@
         self.profileImageView.hidden = YES;
     } else {
         self.nameLabel.text = self.user.name;
-        self.handleLabel.text = self.user.screenname;
+        self.handleLabel.text = self.user.handle;
         self.descriptionLabel.text = self.user.tagline;
         self.followingCountLabel.text = self.user.followingCount;
         self.followerCountLabel.text = self.user.followersCount;
         self.subContentLabel.text = @"Coming Soon";
         [self.profileImageView setImageWithURL:self.user.profileImageUrl];
-        self.profileImageView.hidden = YES;
+        self.profileImageView.hidden = NO;
     }
 }
 /*

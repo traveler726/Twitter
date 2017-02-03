@@ -7,6 +7,7 @@
 //
 
 #import "TwitterClient.h"
+#import "JsonUtil.h"
 #import "Tweet.h"
 
 NSString * const kTwitterConsumerKey = @"vPRomvts63A9GReL4BtzolwHh";
@@ -69,7 +70,16 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
         }];
         
     }
-
+}
+- (void) logoutWithCompletion:(void (^)(User *user, NSError *error)) completion {
+    User *user = [User currentUser];
+    if (user == nil) {
+        NSLog(@"WARNING: Attempting to logout - but already logged out.");
+        completion(user, nil);
+    } else {
+        [user logout];
+        completion(nil, nil);
+    }
 }
 
 // ------------------------------------------
@@ -92,6 +102,8 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
             User *user = [[User alloc] initWithDictionary:responseObject];
             NSLog (@"User created with name: %@ screenName:%@ and tagline:%@", user.name, user.screenname, user.tagline);
             
+            [JsonUtil jsonStringFromDictionary:responseObject logToConsole:YES logPrefix:@"\n\n\nJSON FOR VERIFY_CREDS\n\n\n"];
+            
             [User setCurrentUser:user];
             
             // Call the completion block stored away in 1st step with user!
@@ -105,16 +117,17 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
 
         }];
         
-        [self GET:@"1.1/statuses/home_timeline.json" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"Successful getting Tweets (via home_timeline): %@", responseObject);
-            
-            NSArray *tweets = [Tweet tweetsWithArray:responseObject];
-            for (Tweet *tweet in tweets) {
-                NSLog(@" Tweet createdAt: %@ text: %@", tweet.createdAt, tweet.text);
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog (@"Error getting tweets");
-        }];
+//      Proving all is working just fine with this call.  But not needed here.
+//        [self GET:@"1.1/statuses/home_timeline.json" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//            NSLog(@"Successful getting Tweets (via home_timeline): %@", responseObject);
+//            
+//            NSArray *tweets = [Tweet tweetsWithArray:responseObject];
+//            for (Tweet *tweet in tweets) {
+//                NSLog(@" Tweet createdAt: %@ text: %@", tweet.createdAt, tweet.text);
+//            }
+//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//            NSLog (@"Error getting tweets");
+//        }];
         
     } failure:^(NSError *error) {
         NSLog(@"Failure to get the access token");

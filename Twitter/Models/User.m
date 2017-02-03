@@ -25,8 +25,15 @@ static User *myCurrentUser = nil;
         self.tagline = dictionary[@"description"];
         self.following = [dictionary[@"following"] boolValue];
         
-        self.followingCount = dictionary[@"following_count"];
-        self.followersCount = dictionary[@"followers_count"];
+        self.followingCount = [dictionary[@"friends_count"] stringValue];
+        self.followersCount = [dictionary[@"followers_count"] stringValue];
+        
+        if (self.followingCount == nil) {
+            self.followingCount = @"0";
+        }
+        if (self.followersCount == nil) {
+            self.followersCount = @"0";
+        }
         self.dictionary = dictionary;
         
     }
@@ -71,6 +78,11 @@ static User *myCurrentUser = nil;
         [[NSUserDefaults standardUserDefaults] synchronize];
     };
 }
++ (void) unpersistUser {
+    // need to "logout" by storing nil for entry.
+    [[NSUserDefaults standardUserDefaults] setObject:nil forKey:CurrentUserPersistKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 + (User *) inflateUser {
     User *user = myCurrentUser;
@@ -84,5 +96,9 @@ static User *myCurrentUser = nil;
     return user;
 }
 
+-(void) logout {
+    [User unpersistUser];
+    User.currentUser = nil;
+}
 
 @end

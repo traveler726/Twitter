@@ -18,6 +18,7 @@
 + (TwitterClient *) sharedInstance;
 
 - (void) loginWithCompletion:(void (^)(User *user, NSError *error)) compltion;
+- (void) logoutWithCompletion:(void (^)(User *user, NSError *error)) compltion;
 - (void) openURL:(NSURL *) url;
 - (NSArray<Tweet *> *) getTweets;
 
