@@ -34,13 +34,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    if (self.user != nil) {
-        self.userScreenName = self.user.screenname;
-    }
-    if (self.userScreenName != nil) {
-        [self loadUser];
-    }
+    [self setupNavBar];
+//    [self loadUser]
+//    // Do any additional setup after loading the view from its nib.
+//    if (self.user != nil) {
+//        self.userScreenName = self.user.screenname;
+//    }
+//    if (self.userScreenName != nil) {
+//        [self loadUser];
+//    }
 }
 
 // TODO - have a timing issue here - so going to just punt for now and add the crazy thread blocker!
@@ -95,5 +97,21 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void) setupNavBar {
+    // Setup NavBar items now.  [Another reason should have custom TabBar Class.]
+    UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc]
+                                     initWithTitle:@"Logout"
+                                     style:UIBarButtonItemStylePlain
+                                     target:self
+                                     action:@selector(logoutButtonSelected:)];
+    self.navigationItem.rightBarButtonItem = logoutButton;
+}
+
+
+- (IBAction) logoutButtonSelected :(id)sender {
+    NSLog(@"User has selected to Logout");
+}
+
 
 @end

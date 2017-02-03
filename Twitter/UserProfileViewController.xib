@@ -16,7 +16,6 @@
                 <outlet property="followingCountLabel" destination="3uP-b2-cRR" id="5xw-GI-utN"/>
                 <outlet property="handleLabel" destination="ZBc-7H-bVq" id="pgq-5w-i1k"/>
                 <outlet property="likesButton" destination="CRn-Zc-iHe" id="qM9-sI-eBv"/>
-                <outlet property="logoutButton" destination="yXM-3b-UFG" id="mRn-y7-y6l"/>
                 <outlet property="mediaButton" destination="j1A-OM-AC1" id="56a-s4-2WY"/>
                 <outlet property="nameLabel" destination="pv2-ug-A9W" id="OQz-A0-ZPn"/>
                 <outlet property="profileImageView" destination="cCZ-Uu-VbS" id="E65-78-tnu"/>
@@ -33,7 +32,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UiP-MM-xt8" userLabel="Top Blue View">
                     <rect key="frame" x="0.0" y="-8" width="375" height="128"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User Profile View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VG0-5p-sT1">
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User Profile View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VG0-5p-sT1">
                             <rect key="frame" x="120" y="67" width="134" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -41,7 +40,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.22263215983546902" green="0.72828858195214108" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.95622938871383667" green="0.97660940885543823" blue="0.97658222913742065" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="128" id="XjA-By-NYx"/>
@@ -65,7 +64,7 @@
                     <rect key="frame" x="-8" y="244" width="391" height="20"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Of-gX-bxC">
-                            <rect key="frame" x="0.0" y="0.0" width="93.5" height="20"/>
+                            <rect key="frame" x="0.0" y="0.0" width="130.5" height="20"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <state key="normal" title="Tweets">
@@ -73,22 +72,15 @@
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1A-OM-AC1">
-                            <rect key="frame" x="103.5" y="0.0" width="80" height="20"/>
+                            <rect key="frame" x="140.5" y="0.0" width="111.5" height="20"/>
                             <state key="normal" title="Media">
                                 <color key="titleColor" red="0.22263215980000001" green="0.72828858200000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRn-Zc-iHe">
-                            <rect key="frame" x="193.5" y="0.0" width="68.5" height="20"/>
+                            <rect key="frame" x="262" y="0.0" width="129" height="20"/>
                             <state key="normal" title="Likes">
                                 <color key="titleColor" red="0.22263215980000001" green="0.72828858200000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yXM-3b-UFG">
-                            <rect key="frame" x="272" y="0.0" width="119" height="20"/>
-                            <state key="normal" title="Logout">
-                                <color key="titleColor" red="0.22263215980000001" green="0.72828858200000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
                     </subviews>
@@ -197,7 +189,7 @@
                     <rect key="frame" x="0.0" y="274" width="375" height="393"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub-Content for seleted tab" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BhA-Fa-qap">
-                            <rect key="frame" x="80" y="186" width="215" height="21"/>
+                            <rect key="frame" x="80.5" y="186.5" width="214.5" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>

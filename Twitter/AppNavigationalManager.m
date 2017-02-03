@@ -171,6 +171,13 @@
         // Create the TabBarController now.
         UITabBarController *tabBarC = [[UITabBarController alloc] init];
         tabBarC.viewControllers = @[self.timeLineNavC, self.userProfileNavC];
+        tabBarC.tabBar.hidden = NO;
+        //tabBarC.tabBar.appearance = [UIImage colorForNavBar(.redColor())
+        //tabBarC.tabBar.appearance = [UIColor redColor];
+        //[[tabBarC.tabBar.items objectAtIndex:0] setImage:[UIImage imageNamed:@"home-icon"]];
+        //[[tabBarC.tabBar.items objectAtIndex:0] setImage:[UIImage imageNamed:@"profile-icon"]];
+        
+
         
         self.loggedInTabBarVC = tabBarC;
         
