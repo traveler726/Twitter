@@ -12,7 +12,10 @@
 @interface UserProfileViewController : UIViewController
 
 @property (nonatomic, strong) User *user;
+@property (nonatomic, strong) NSString *userScreenName;
 
 - (void) reloadData;
+- (void) loadUser;
+- (void) loadUser:(NSString*)userScreenName;
 
 @end

@@ -59,8 +59,7 @@
     
     if (self != nil) {
         UIViewController *initialRootVC;
-        // if ([self isUserLoggedIn]) {
-        if (false) {
+        if ([self isUserLoggedIn]) {
             NSLog(@"\n\nAppNavigationalManager determined user '%@' is currently logged in.", self.activeUser.name);
             initialRootVC = [self loggedInVC];
         } else {
@@ -211,23 +210,42 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if ((self.userProfileVC == nil) || (self.userProfileNavC == nil)) {
-            self.userProfileVC = [[UserProfileViewController alloc] initWithNibName:@"UserProfileViewController" bundle:nil];
+            self.userProfileVC = [self makeUserProfileVC:self.activeUser.screenname];
             if (self.userProfileVC == nil) {
                 NSLog (@"ERROR: Problems creating the User Profile VC = UserProfileViewController!");
             } else {
-                self.userProfileVC.title = @"Profile";
-                self.userProfileVC.user = self.activeUser;
                 self.userProfileNavC = [[UINavigationController alloc] initWithRootViewController:self.userProfileVC];
                 if (self.userProfileNavC == nil) {
                     NSLog (@"ERROR: Problems creating the User Profile NavigationController!");
                 }
-                
-                [self.userProfileVC reloadData];
             }
         } {
             NSLog (@"WARNING: Already Setup for User Profile - something went amiss!");
         }
     });
 }
+
+-(UserProfileViewController *) makeUserProfileVC:(NSString *)screenName {
+    UserProfileViewController *userProfileVC = nil;
+    if (screenName != nil) {
+        userProfileVC = [[UserProfileViewController alloc] initWithNibName:@"UserProfileViewController" bundle:nil];
+        if (userProfileVC == nil) {
+            NSLog (@"ERROR: Problems creating the User Profile VC = UserProfileViewController for screenname: %@!", screenName);
+        } else {
+            userProfileVC.title = @"Profile";
+            [userProfileVC loadUser:screenName];
+        }
+    }
+    return userProfileVC;
+}
+
+// -------- Pretty donkey - but trying to get stuff working here.  Need to Refactor!
+- (void) pushUserProfileView:(NSString *)screenname ontoNavWithName:(NSString*)navName {
+    UserProfileViewController *newUserVC = [self makeUserProfileVC:screenname];
+    if ([@"UserProfile" caseInsensitiveCompare:navName] == NSOrderedSame) {
+        [self.timeLineNavC pushViewController:newUserVC animated:TRUE];
+    }
+}
+
 
 @end

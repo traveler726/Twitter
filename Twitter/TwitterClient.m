@@ -18,6 +18,7 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
 
 // Property storying a function!
 @property (nonatomic, strong) void (^loginCompletion)(User *user, NSError *error);
+@property (nonatomic, strong) void (^userCompletion)(User *user, NSError *error);
 
 @end
 
@@ -133,7 +134,7 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
         NSLog(@"Failure to get the access token");
     }];
 }
-
+// TODO - this should manage the threads better!
 - (NSArray<Tweet *> *) getTweets {
     
     NSArray<Tweet *> *tweets = nil;
@@ -152,6 +153,26 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
     }];
     
     return tweets;
+}
+
+- (void) getUser:(NSString *) screenname withCompletion:(void (^)(User *user, NSError *error))completion {
+    
+    self.userCompletion = completion;
+    
+    // TODO should be breaking the parameters out@
+    NSString *urlPath = [NSString stringWithFormat:@"1.1/users/show.json?screen_name=%@", screenname];
+    [self GET:urlPath parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [JsonUtil jsonStringFromDictionary:responseObject logToConsole:YES logPrefix:@"\n\n\nJSON for USER\n\n\n"];
+
+        User *user = [[User alloc] initWithDictionary:responseObject];
+        NSLog (@"User created with name: %@ screenName:%@ and tagline:%@", user.name, user.screenname, user.tagline);
+        
+        self.userCompletion(user, nil);
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        self.userCompletion(nil, error);
+    }];
+
 }
 
 @end

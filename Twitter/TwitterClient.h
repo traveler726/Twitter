@@ -19,6 +19,7 @@
 
 - (void) loginWithCompletion:(void (^)(User *user, NSError *error)) compltion;
 - (void) logoutWithCompletion:(void (^)(User *user, NSError *error)) compltion;
+- (void) getUser:(NSString *) screenname withCompletion:(void (^)(User *user, NSError *error)) completion;
 - (void) openURL:(NSURL *) url;
 - (NSArray<Tweet *> *) getTweets;
 

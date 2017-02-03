@@ -7,6 +7,7 @@
 //
 
 #import <AFNetworking/UIImageView+AFNetworking.h>  // Adds functionality to the ImageView
+#import "AppNavigationalManager.h"
 #import "TweetTableViewCell.h"
 #import "Tweet.h"
 
@@ -40,7 +41,10 @@
 
 // Called on the cell after all the views have been created on the cell
 - (void)awakeFromNib {
-    [super awakeFromNib];    
+    [super awakeFromNib];
+    
+    UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapProfileImage)];
+    [self.profileImageView addGestureRecognizer:imageTap];
 }
 
 - (void) reloadData {
@@ -76,6 +80,10 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     // Configure the view for the selected state
+}
+- (void) tapProfileImage {
+    NSLog(@"You tapped on this user profile image name:%@ screenName: %@", self.tweet.user.name, self.tweet.user.screenname);
+    [[AppNavigationalManager sharedObj] pushUserProfileView:self.tweet.user.screenname ontoNavWithName:@"UserProfile"];
 }
 
 @end

@@ -19,4 +19,7 @@
 - (void) userHasLoggedIn;
 - (void) userHasLoggedOut;
 
+- (void) pushUserProfileView:(NSString *)screenname ontoNavWithName:(NSString*)navName;
+
+
 @end

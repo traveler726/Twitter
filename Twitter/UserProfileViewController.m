@@ -7,6 +7,8 @@
 //
 
 #import "UserProfileViewController.h"
+#import "TwitterClient.h"
+#import "DateTimeUtils.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>  // Adds functionality to the ImageView
 
 
@@ -33,10 +35,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    if (self.user == nil) {
-        // Should this force a login?
+    if (self.user != nil) {
+        self.userScreenName = self.user.screenname;
     }
-    [self reloadData];
+    if (self.userScreenName != nil) {
+        [self loadUser];
+    }
+}
+
+// TODO - have a timing issue here - so going to just punt for now and add the crazy thread blocker!
+-(void) loadUser:(NSString*)userScreenName {
+    if (userScreenName != nil) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            [[TwitterClient sharedInstance] getUser:userScreenName withCompletion:^(User *user, NSError *error) {
+                self.user = user;
+                self.userScreenName = userScreenName;
+                NSLog(@"UserProfileViewController has refreshed the data for user: %@ screenname: %@ at %@", self.user.name, userScreenName, [DateTimeUtils nowPrettyPrint]);
+                [self reloadData];
+            }];
+        });
+    }
+}
+-(void) loadUser {
+    [self loadUser:self.userScreenName];
 }
 
 - (void)didReceiveMemoryWarning {
