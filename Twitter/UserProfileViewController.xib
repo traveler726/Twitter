@@ -70,18 +70,27 @@
                             <state key="normal" title="Tweets">
                                 <color key="titleColor" red="0.22263215980000001" green="0.72828858200000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
+                            <connections>
+                                <action selector="onTweetButton:" destination="-1" eventType="primaryActionTriggered" id="wBk-KX-8ZR"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1A-OM-AC1">
                             <rect key="frame" x="140.5" y="0.0" width="111.5" height="20"/>
                             <state key="normal" title="Media">
                                 <color key="titleColor" red="0.22263215980000001" green="0.72828858200000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
+                            <connections>
+                                <action selector="onMediaButton:" destination="-1" eventType="primaryActionTriggered" id="7jI-J3-zZe"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRn-Zc-iHe">
                             <rect key="frame" x="262" y="0.0" width="129" height="20"/>
                             <state key="normal" title="Likes">
                                 <color key="titleColor" red="0.22263215980000001" green="0.72828858200000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
+                            <connections>
+                                <action selector="onLikesButton:" destination="-1" eventType="primaryActionTriggered" id="yxs-Wl-5Mc"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.21683045749999999" green="0.70793306229999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

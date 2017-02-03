@@ -35,6 +35,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupNavBar];
+    [self reloadData];
+
 //    [self loadUser]
 //    // Do any additional setup after loading the view from its nib.
 //    if (self.user != nil) {
@@ -75,7 +77,7 @@
         self.descriptionLabel.text = nil;
         self.followingCountLabel.text = nil;
         self.followerCountLabel.text = nil;
-        self.subContentLabel.text = @"ERROR";
+        self.subContentLabel.text = @"User Needed";
         self.profileImageView.hidden = YES;
     } else {
         self.nameLabel.text = self.user.name;
@@ -83,7 +85,7 @@
         self.descriptionLabel.text = self.user.tagline;
         self.followingCountLabel.text = self.user.followingCount;
         self.followerCountLabel.text = self.user.followersCount;
-        self.subContentLabel.text = @"Coming Soon";
+        self.subContentLabel.text = @"Tweets Coming Soon";
         [self.profileImageView setImageWithURL:self.user.profileImageUrl];
         self.profileImageView.hidden = NO;
     }
@@ -112,6 +114,35 @@
 - (IBAction) logoutButtonSelected :(id)sender {
     NSLog(@"User has selected to Logout");
 }
+- (IBAction)onTweetButton:(UIButton *)sender {
+    [self messageToUser:@"Tweets Coming Soon"];
+}
+- (IBAction)onMediaButton:(UIButton *)sender {
+    [self messageToUser:@"Media Coming Soon"];
 
+}
+- (IBAction)onLikesButton:(UIButton *)sender {
+    [self messageToUser:@"Likes Coming Soon"];
+}
+
+-(void) messageToUser:(NSString *) message {
+    // Easy way deprecated:
+    // [self presentViewController(alertController, animated: true, completion: nil)
+
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Under Construction"
+                                                            message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* gotItButton = [UIAlertAction
+                                actionWithTitle:@"Got It!"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction * action) {
+                                    //Handle your yes please button action here
+                                }];
+    [alert addAction:gotItButton];
+
+    [self.navigationController presentViewController:alert animated:TRUE completion:^{
+        self.subContentLabel.text = message;
+    }];
+}
 
 @end
