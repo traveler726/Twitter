@@ -35,30 +35,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupNavBar];
-    [self reloadData];
-
-//    [self loadUser]
-//    // Do any additional setup after loading the view from its nib.
-//    if (self.user != nil) {
-//        self.userScreenName = self.user.screenname;
-//    }
-//    if (self.userScreenName != nil) {
-//        [self loadUser];
-//    }
+    
+    if (self.user != nil) {
+        self.userScreenName = self.user.screenname;
+    }
+    [self loadUser];
 }
 
 // TODO - have a timing issue here - so going to just punt for now and add the crazy thread blocker!
 -(void) loadUser:(NSString*)userScreenName {
     if (userScreenName != nil) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
             [[TwitterClient sharedInstance] getUser:userScreenName withCompletion:^(User *user, NSError *error) {
                 self.user = user;
                 self.userScreenName = userScreenName;
                 NSLog(@"UserProfileViewController has refreshed the data for user: %@ screenname: %@ at %@", self.user.name, userScreenName, [DateTimeUtils nowPrettyPrint]);
                 [self reloadData];
             }];
-        });
+    } else {
+        [self reloadData];
     }
 }
 -(void) loadUser {

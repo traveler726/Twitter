@@ -241,6 +241,7 @@
         } else {
             userProfileVC.title = @"Profile";
             [userProfileVC loadUser:screenName];
+            [userProfileVC loadUser]; // ]reloadData];
         }
     }
     return userProfileVC;
