@@ -90,11 +90,11 @@
 #pragma mark Management of Login/Logout logic and state.
 
 - (BOOL) isUserLoggedIn {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
         User *user = [User currentUser];
         self.activeUser = user;
-    });
+//    });
     return ((self.activeUser == nil) ? NO : YES);
 }
 
