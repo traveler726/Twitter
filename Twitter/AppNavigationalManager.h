@@ -20,6 +20,8 @@
 - (void) userHasLoggedIn;
 - (void) userHasLoggedOut;
 
+- (void) logCurrentUserOut;
+
 - (void) pushUserProfileView:(NSString *)screenname ontoNavWithName:(NSString*)navName;
 - (void) pushTweetDetailView:(Tweet    *)tweet      ontoNavWithName:(NSString*)navName;
 

@@ -29,6 +29,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setupRefresh];
+    [self setupNavBar];
     [self.viewTable setDelegate:self];
     
     [self getData];
@@ -142,6 +143,24 @@
 //    [UIUtils messageToUser:messageText forNavController:self.navigationController];
     Tweet *tweet = [self.tweets objectAtIndex:indexPath.row];
     [[AppNavigationalManager sharedObj] pushTweetDetailView:tweet ontoNavWithName:@"HomeTimeLine"];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void) setupNavBar {
+    // Setup NavBar items now.  [Another reason should have custom TabBar Class.]
+    UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc]
+                                     initWithTitle:@"Logout"
+                                     style:UIBarButtonItemStylePlain
+                                     target:self
+                                     action:@selector(onLogoutButton:)];
+    self.navigationItem.rightBarButtonItem = logoutButton;
+}
+
+
+- (IBAction) onLogoutButton :(id)sender {
+    [[AppNavigationalManager sharedObj] logCurrentUserOut];
+    [UIUtils messageToUser:@"User has selected to Logout" forNavController:self.navigationController];
 }
 
 @end

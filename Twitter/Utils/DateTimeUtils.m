@@ -11,15 +11,36 @@
 @implementation DateTimeUtils
 
 +(NSString *) nowPrettyPrint {
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"MMM d, h:mm a"];
-//    NSString *nowString = [NSString stringWithFormat:@"@ %@",  [formatter stringFromDate:[NSDate date]]
-//    NSString *nowPretty = [NSString stringWithFormat:@"@ %@...", [formatter stringFromDate:[NSDate date]];
+    // Setting up formatter can be done once and not each time!
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM-dd-yyyy hh:mm:ss a"];
     NSString *nowPretty = [NSString stringWithFormat:@"@ %@",[dateFormatter stringFromDate:[NSDate date]]];
     return nowPretty;
     
 }
+
+
++(NSString *) prettyPrint:(NSDate *)inputDateTime {
+    // Setting up formatter can be done once and not each time!
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM-dd-yyyy hh:mm:ss a"];
+    NSString *nowPretty = [NSString stringWithFormat:@"@ %@",[dateFormatter stringFromDate:inputDateTime]];
+    return nowPretty;
+    
+}
+
+
++ (NSString *) simpleCreateTimeString:(NSDate *)inputDateTime {
+    NSString *timeStr = @"tbd";
+    if (inputDateTime != nil) {
+        
+        // Setting up formatter can be done once and not each time!
+        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"M-d-y, hh:mm a"];
+        timeStr = [dateFormatter stringFromDate:inputDateTime];
+    }
+    return timeStr;
+}
+
 
 @end

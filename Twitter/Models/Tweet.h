@@ -20,6 +20,7 @@
 @property (nonatomic, assign) NSInteger retweetCount;
 @property (nonatomic, assign) BOOL favorited;
 @property (nonatomic, assign) BOOL retweeted;
+@property (nonatomic, assign) BOOL replied; 
 
 -(id) initWithDictionary:(NSDictionary *)dictionary;
 

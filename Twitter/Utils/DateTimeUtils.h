@@ -10,6 +10,8 @@
 
 @interface DateTimeUtils : NSObject
 
-+(NSString *) nowPrettyPrint;
++ (NSString *) nowPrettyPrint;
++ (NSString *) prettyPrint:(NSDate *)inputDateTime;
++ (NSString *) simpleCreateTimeString:(NSDate *)inputDateTime;
 
 @end

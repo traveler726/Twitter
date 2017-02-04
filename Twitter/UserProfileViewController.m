@@ -11,6 +11,7 @@
 #import "DateTimeUtils.h"
 #import "UIUtils.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>  // Adds functionality to the ImageView
+#import "AppNavigationalManager.h"
 
 
 @interface UserProfileViewController ()
@@ -101,12 +102,13 @@
                                      initWithTitle:@"Logout"
                                      style:UIBarButtonItemStylePlain
                                      target:self
-                                     action:@selector(logoutButtonSelected:)];
+                                     action:@selector(onLogoutButton:)];
     self.navigationItem.rightBarButtonItem = logoutButton;
 }
 
 
-- (IBAction) logoutButtonSelected :(id)sender {
+- (IBAction) onLogoutButton :(id)sender {
+    [[AppNavigationalManager sharedObj] logCurrentUserOut];
     [UIUtils messageToUser:@"User has selected to Logout" forNavController:self.navigationController];
 }
 

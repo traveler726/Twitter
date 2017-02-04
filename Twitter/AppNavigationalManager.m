@@ -10,9 +10,11 @@
 #import "TweetListViewController.h"
 #import "UserProfileViewController.h"
 #import "User.h"
+#import "TwitterClient.h"
 
 #import "TweetDetailViewController.h"
 #import "Tweet.h"
+#import "UIUtils.h"
 
 
 
@@ -97,8 +99,8 @@
 }
 
 - (UIViewController *) loggedInVC {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
         if ([self isUserLoggedIn]) {
             if (self.loggedInTabBarVC == nil) {
                 [self setupNewLoggedInTabBarVC];
@@ -106,7 +108,7 @@
         } else {
             NSLog(@"\n\nERROR - Told the user was logged in but does not appear to be.");
         }
-    });
+//    });
     return self.loggedInTabBarVC;
 }
 
@@ -134,12 +136,26 @@
     // tell the managed NavigationController to change presentation
     // to the logged in VC since user is now logged in.
     
+    //[UIUtils messageToUser:@"User has logged out." forNavController:self.managedNavController];
+    
     // TODO - figure out how to not use a stack since not needed.
     UIViewController *vcToSwitchTo = [self loggedOutVC];
     NSArray *navVCStack = [NSArray arrayWithObjects:vcToSwitchTo, nil];
     [self.managedNavController setViewControllers:navVCStack animated:YES];
 }
 
+
+- (void) logCurrentUserOut {
+    [[TwitterClient sharedInstance] logoutWithCompletion:^(User *user, NSError *error) {
+        if (user == nil) {
+            NSLog(@"User has logged out.");
+            [self userHasLoggedOut];
+        } else {
+            NSLog(@"ERROR: Logout Error.  Still signed in as: %@ Error: %@", user.name, error);
+        }
+        
+    }];
+}
 
 // ------------------------------------------------------------
 // NOTE: TBD - refactoring opportunity here!

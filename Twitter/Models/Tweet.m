@@ -51,6 +51,7 @@
         self.retweetCount = [dictionary[@"retweet_count"] integerValue];
         self.favorited = [dictionary[@"favorited"] boolValue];
         self.retweeted = [dictionary[@"retweeted"] boolValue];
+        self.replied   = NO; // TODO [dictionary[@"replied"] boolValue];
         
         NSDictionary *retweetStatusDict = dictionary[@"retweeted_status"];
         if ([dictionary objectForKey:@"retweeted_status"] != nil) {
@@ -78,5 +79,18 @@
     }
     return elapsed;
 }
+
+
+- (NSString *) simpleCreateTimeString {
+    NSString *timeStr = @"tbd";
+    if (self.createdAt != nil) {
+        // Setting up formatter can be done once and not each time!
+        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"m-d-y, hh:mm a"];
+        timeStr = [dateFormatter stringFromDate:self.createdAt];
+    }
+    return timeStr;
+}
+
 
 @end
