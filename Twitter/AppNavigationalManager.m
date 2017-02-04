@@ -11,6 +11,10 @@
 #import "UserProfileViewController.h"
 #import "User.h"
 
+#import "TweetDetailViewController.h"
+#import "Tweet.h"
+
+
 
 // -------------------------------------------------------------
 //
@@ -252,6 +256,30 @@
     UserProfileViewController *newUserVC = [self makeUserProfileVC:screenname];
     if ([@"UserProfile" caseInsensitiveCompare:navName] == NSOrderedSame) {
         [self.timeLineNavC pushViewController:newUserVC animated:TRUE];
+    }
+}
+
+
+-(TweetDetailViewController *) makeTweetDetailVC:(Tweet *)tweet {
+    TweetDetailViewController *newVC = nil;
+    if (tweet != nil) {
+        newVC = [[TweetDetailViewController alloc] initWithNibName:@"TweetDetailViewController" bundle:nil];
+        if (newVC == nil) {
+            NSLog (@"ERROR: Problems creating the Tweet Detail VC = TweetDetailViewController for tweet: %@!", tweet.text);
+        } else {
+            newVC.title = @"Tweet";
+            newVC.tweet = tweet;
+            [newVC reloadData];
+        }
+    }
+    return newVC;
+}
+
+// -------- Pretty donkey - but trying to get stuff working here.  Need to Refactor!
+- (void) pushTweetDetailView:(Tweet *)tweet ontoNavWithName:(NSString*)navName {
+    TweetDetailViewController *newVC = [self makeTweetDetailVC:tweet];
+    if ([@"HomeTimeLine" caseInsensitiveCompare:navName] == NSOrderedSame) {
+        [self.timeLineNavC pushViewController:newVC animated:TRUE];
     }
 }
 

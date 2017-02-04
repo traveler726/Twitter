@@ -6,12 +6,14 @@
 //  Copyright © 2017 JenniferBeck. All rights reserved.
 //
 
+#import "AppNavigationalManager.h"
 #import "TweetListViewController.h"
 #import "TweetTableViewCell.h"
 #import "TwitterClient.h"
 #import "Tweet.h"
+#import "UIUtils.h"
 
-@interface TweetListViewController ()  <UITableViewDataSource>
+@interface TweetListViewController ()  <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *viewTable;
 @property (strong, nonatomic) NSArray<Tweet *> *tweets;
@@ -27,6 +29,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setupRefresh];
+    [self.viewTable setDelegate:self];
     
     [self getData];
     [self.viewTable reloadData];
@@ -130,6 +133,15 @@
         [self.viewTable reloadData];
         [self.refreshTableControl endRefreshing];
     });
+}
+
+#pragma mark - UITableViewDelegate for cell selection
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    NSString *messageText = [NSString stringWithFormat:@"User selected table row for index:%ld", indexPath.row];
+//    [UIUtils messageToUser:messageText forNavController:self.navigationController];
+    Tweet *tweet = [self.tweets objectAtIndex:indexPath.row];
+    [[AppNavigationalManager sharedObj] pushTweetDetailView:tweet ontoNavWithName:@"HomeTimeLine"];
 }
 
 @end

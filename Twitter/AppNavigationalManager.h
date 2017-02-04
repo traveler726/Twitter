@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Tweet.h"
 
 @interface AppNavigationalManager : NSObject
 
@@ -20,6 +21,7 @@
 - (void) userHasLoggedOut;
 
 - (void) pushUserProfileView:(NSString *)screenname ontoNavWithName:(NSString*)navName;
+- (void) pushTweetDetailView:(Tweet    *)tweet      ontoNavWithName:(NSString*)navName;
 
 
 @end

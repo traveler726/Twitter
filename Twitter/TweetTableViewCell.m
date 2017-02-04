@@ -10,6 +10,7 @@
 #import "AppNavigationalManager.h"
 #import "TweetTableViewCell.h"
 #import "Tweet.h"
+#import "UIUtils.h"
 
 
 @interface TweetTableViewCell ()
@@ -45,6 +46,10 @@
     
     UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapProfileImage)];
     [self.profileImageView addGestureRecognizer:imageTap];
+    
+    [self.favoriteButton setImage:[UIImage imageNamed:@"favor-icon-red"]     forState:UIControlStateSelected];
+    [self.retweetButton  setImage:[UIImage imageNamed:@"retweet-icon-green"] forState:UIControlStateSelected];
+
 }
 
 - (void) reloadData {
@@ -66,6 +71,14 @@
             self.retweetedbyLabel.hidden = YES;
             self.retweetedTopIcon.hidden = YES;
             self.retweetContainerHeightContraint.constant = 0;
+        }
+        
+        if (self.tweet.favorited) {
+            self.favoriteButton.selected = YES;
+        }
+        
+        if (self.tweet.retweeted) {
+            self.retweetButton.selected = YES;
         }
         [self setNeedsUpdateConstraints];
     } else {
@@ -90,6 +103,8 @@
 }
 
 - (IBAction)onReplyButton:(UIButton *)sender {
+    NSString *alertMessage = [NSString stringWithFormat:@"Reply to Tweet = %@", self.tweet.text];
+    [UIUtils messageToUser:alertMessage forNavController:nil];
 }
 
 @end

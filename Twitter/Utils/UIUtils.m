@@ -15,6 +15,7 @@
     // Easy way deprecated:
     // [self presentViewController(alertController, animated: true, completion: nil)
     
+    if (navigationController != nil) {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Under Construction"
                                                                    message:message
                                                             preferredStyle:UIAlertControllerStyleAlert];
@@ -27,6 +28,10 @@
     [alert addAction:gotItButton];
     
     [navigationController presentViewController:alert animated:TRUE completion:nil];
+    } else {
+        NSLog(@"ALERT: Under Construction: %@", message);
+    }
 }
+
 
 @end
