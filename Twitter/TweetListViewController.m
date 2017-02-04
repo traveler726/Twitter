@@ -9,8 +9,10 @@
 #import "AppNavigationalManager.h"
 #import "TweetListViewController.h"
 #import "TweetTableViewCell.h"
+#import "TweetCreateViewController.h"
 #import "TwitterClient.h"
 #import "Tweet.h"
+#import "User.h"
 #import "UIUtils.h"
 
 @interface TweetListViewController ()  <UITableViewDataSource, UITableViewDelegate>
@@ -154,7 +156,14 @@
                                      style:UIBarButtonItemStylePlain
                                      target:self
                                      action:@selector(onLogoutButton:)];
-    self.navigationItem.rightBarButtonItem = logoutButton;
+    UIBarButtonItem *tweetButton = [[UIBarButtonItem alloc]
+                                    initWithTitle:@"Tweet"
+                                    style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector(onCreateTweetButton:)];
+    [tweetButton setImage:[UIImage imageNamed:@"edit-icon"]];
+    self.navigationItem.leftBarButtonItem = logoutButton;
+    self.navigationItem.rightBarButtonItem = tweetButton;
 }
 
 
@@ -162,5 +171,12 @@
     [[AppNavigationalManager sharedObj] logCurrentUserOut];
     [UIUtils messageToUser:@"User has selected to Logout" forNavController:self.navigationController];
 }
+
+- (IBAction) onCreateTweetButton:(id)sender {
+    TweetCreateViewController *createVC = [[TweetCreateViewController alloc] initWithNibName:@"TweetCreateViewController" bundle:nil];
+    [createVC loadUser:[User currentUser]];
+    [self.navigationController pushViewController:createVC animated:YES];
+}
+
 
 @end

@@ -12,6 +12,7 @@
 #import "UIUtils.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>  // Adds functionality to the ImageView
 #import "AppNavigationalManager.h"
+#import "TweetCreateViewController.h"
 
 
 @interface UserProfileViewController ()
@@ -103,13 +104,27 @@
                                      style:UIBarButtonItemStylePlain
                                      target:self
                                      action:@selector(onLogoutButton:)];
-    self.navigationItem.rightBarButtonItem = logoutButton;
+    UIBarButtonItem *tweetButton = [[UIBarButtonItem alloc]
+                                     initWithTitle:@"Tweet"
+                                     style:UIBarButtonItemStylePlain
+                                     target:self
+                                     action:@selector(onCreateTweetButton:)];
+    [tweetButton setImage:[UIImage imageNamed:@"edit-icon"]];
+    self.navigationItem.leftBarButtonItem = logoutButton;
+    self.navigationItem.rightBarButtonItem = tweetButton;
+
 }
 
 
-- (IBAction) onLogoutButton :(id)sender {
+- (IBAction) onLogoutButton:(id)sender {
     [[AppNavigationalManager sharedObj] logCurrentUserOut];
     [UIUtils messageToUser:@"User has selected to Logout" forNavController:self.navigationController];
+}
+
+- (IBAction) onCreateTweetButton:(id)sender {    
+    TweetCreateViewController *createVC = [[TweetCreateViewController alloc] initWithNibName:@"TweetCreateViewController" bundle:nil];
+    [createVC loadUser:self.user];
+    [self.navigationController pushViewController:createVC animated:YES];
 }
 
 - (IBAction)onTweetButton:(UIButton *)sender {

@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "User.h"
 
 @interface TweetCreateViewController : UIViewController
 
 - (void) reloadData;
+- (void) loadUser:(User *) user;
+
+@property (nonatomic, strong) User *user;
 
 @end

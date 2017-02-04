@@ -11,6 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TweetCreateViewController">
             <connections>
+                <outlet property="createTextField" destination="HL4-sb-H2D" id="rhN-jn-GIk"/>
+                <outlet property="handleLabel" destination="Hfa-Xx-RQ5" id="R0T-6E-hV9"/>
+                <outlet property="nameLabel" destination="cdV-yJ-fdr" id="5v7-Oy-VmU"/>
+                <outlet property="profileImageView" destination="Jjn-V8-esj" id="7Ms-ed-gMP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,15 +23,74 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create Tweet View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4L-6Y-jtW">
-                    <rect key="frame" x="122" y="274" width="134" height="21"/>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create Tweet View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G4L-6Y-jtW">
+                    <rect key="frame" x="122" y="450" width="134" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HL4-sb-H2D" userLabel="CreateText">
+                    <rect key="frame" x="14" y="148" width="347" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="D8J-60-zLo"/>
+                    </constraints>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WM8-c1-ZVa" userLabel="UserContainer">
+                    <rect key="frame" x="0.0" y="68" width="383" height="80"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NameLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdV-yJ-fdr">
+                            <rect key="frame" x="72" y="23.5" width="76" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" id="ETx-98-Be7"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" id="mu1-AU-O4f"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HandleLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hfa-Xx-RQ5">
+                            <rect key="frame" x="72" y="44.5" width="64.5" height="14.5"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" id="H6b-eL-lwm"/>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" id="kpj-3f-Fzp"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jjn-V8-esj" userLabel="ProfileImageView">
+                            <rect key="frame" x="14" y="16" width="48" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="48" id="eGD-xc-wWo"/>
+                                <constraint firstAttribute="height" constant="48" id="zpc-hX-eyP"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="cdV-yJ-fdr" firstAttribute="centerY" secondItem="Jjn-V8-esj" secondAttribute="centerY" constant="-8" id="PXv-Yo-rmY"/>
+                        <constraint firstItem="Jjn-V8-esj" firstAttribute="centerY" secondItem="WM8-c1-ZVa" secondAttribute="centerY" id="Quq-Kk-P1p"/>
+                        <constraint firstItem="Jjn-V8-esj" firstAttribute="leading" secondItem="WM8-c1-ZVa" secondAttribute="leading" constant="14" id="TsL-vx-7x7"/>
+                        <constraint firstItem="Hfa-Xx-RQ5" firstAttribute="leading" secondItem="cdV-yJ-fdr" secondAttribute="leading" id="Wmk-dd-d0u"/>
+                        <constraint firstAttribute="height" constant="80" id="cJS-A2-99F"/>
+                        <constraint firstItem="Hfa-Xx-RQ5" firstAttribute="top" secondItem="cdV-yJ-fdr" secondAttribute="bottom" constant="4" id="i4y-0H-8PR"/>
+                        <constraint firstItem="cdV-yJ-fdr" firstAttribute="leading" secondItem="Jjn-V8-esj" secondAttribute="trailing" constant="10" id="o08-rK-qBQ"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="HL4-sb-H2D" firstAttribute="top" secondItem="WM8-c1-ZVa" secondAttribute="bottom" id="3d2-15-SEx"/>
+                <constraint firstItem="WM8-c1-ZVa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4DS-8Q-JZp"/>
+                <constraint firstAttribute="trailing" secondItem="HL4-sb-H2D" secondAttribute="trailing" constant="14" id="QWK-bG-haP"/>
+                <constraint firstItem="WM8-c1-ZVa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="68" id="b3c-Rz-ADW"/>
+                <constraint firstAttribute="trailing" secondItem="WM8-c1-ZVa" secondAttribute="trailing" constant="-8" id="gYw-7e-2Nb"/>
+                <constraint firstItem="HL4-sb-H2D" firstAttribute="leading" secondItem="Jjn-V8-esj" secondAttribute="leading" id="hDW-4n-gLS"/>
+            </constraints>
+            <point key="canvasLocation" x="47.5" y="146.5"/>
         </view>
     </objects>
 </document>

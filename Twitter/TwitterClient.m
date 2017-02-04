@@ -17,8 +17,9 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
 @interface TwitterClient()
 
 // Property storying a function!
-@property (nonatomic, strong) void (^loginCompletion)(User *user, NSError *error);
-@property (nonatomic, strong) void (^userCompletion)(User *user, NSError *error);
+@property (nonatomic, strong) void (^loginCompletion) (User *user, NSError *error);
+@property (nonatomic, strong) void (^userCompletion)  (User *user, NSError *error);
+@property (nonatomic, strong) void (^createCompletion)(id responseObject, NSError *error);
 
 @end
 
@@ -174,5 +175,21 @@ NSString * const kTwitterBaseUrl = @"https://api.twitter.com";
     }];
 
 }
+
+
+// -----------------------------
+- (void) createTweet:(NSString *)tweetText withCompletion:(void (^)(id responseObject, NSError *error)) completion {
+    self.createCompletion = completion;
+
+    NSLog(@"Create tweet with: '%@'", tweetText);
+    NSString *encodedTweet = [tweetText stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *urlPath = [NSString stringWithFormat:@"1.1/statuses/update.json?status=%@", encodedTweet];
+    [self POST:urlPath parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        self.createCompletion(responseObject, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        self.createCompletion(nil, error);
+    }];
+}
+
 
 @end
